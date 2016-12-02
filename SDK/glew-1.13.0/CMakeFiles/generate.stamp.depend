@@ -1,0 +1,7 @@
+# CMake generation dependency list for this directory.
+D:/School/ME 557/SDK/glew-1.13.0/CMakeLists.txt
+C:/Users/david/Downloads/cmake-3.6.1-win64-x64/cmake-3.6.1-win64-x64/share/cmake-3.6/Modules/CMakePackageConfigHelpers.cmake
+C:/Users/david/Downloads/cmake-3.6.1-win64-x64/cmake-3.6.1-win64-x64/share/cmake-3.6/Modules/CMakeParseArguments.cmake
+C:/Users/david/Downloads/cmake-3.6.1-win64-x64/cmake-3.6.1-win64-x64/share/cmake-3.6/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/david/Downloads/cmake-3.6.1-win64-x64/cmake-3.6.1-win64-x64/share/cmake-3.6/Modules/CMakeParseArguments.cmake
+D:/School/ME 557/SDK/glew-1.13.0/src/glewConfig.cmake.in

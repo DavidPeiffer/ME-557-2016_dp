@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{85AB7977-44B3-3617-A968-B7D4C869C5C8}</ProjectGUID>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\School\ME-557-2016_dp\SDK\include;D:\School\ME-557-2016_dp\Class Project\..\gl_common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\School\ME-557-2016_dp\SDK\include;D:\School\ME-557-2016_dp\Class Project\..\gl_common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\School\ME-557-2016_dp\SDK\include;D:\School\ME-557-2016_dp\Class Project\..\gl_common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\School\ME-557-2016_dp\SDK\include;D:\School\ME-557-2016_dp\Class Project\..\gl_common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\bin\cmake.exe "-HD:/School/ME-557-2016_dp/Class Project" "-BD:/School/ME-557-2016_dp/Class Project" --check-stamp-file "D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCCompiler.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCXXCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeRCCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeRCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlew.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlm.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlfw3.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindOpenGL.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\bin\cmake.exe "-HD:/School/ME-557-2016_dp/Class Project" "-BD:/School/ME-557-2016_dp/Class Project" --check-stamp-file "D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCCompiler.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCXXCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeRCCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeRCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlew.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlm.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlfw3.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindOpenGL.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\bin\cmake.exe "-HD:/School/ME-557-2016_dp/Class Project" "-BD:/School/ME-557-2016_dp/Class Project" --check-stamp-file "D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCCompiler.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCXXCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeRCCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeRCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlew.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlm.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlfw3.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindOpenGL.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\bin\cmake.exe "-HD:/School/ME-557-2016_dp/Class Project" "-BD:/School/ME-557-2016_dp/Class Project" --check-stamp-file "D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/School/ME-557-2016_dp/Class Project/CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCCompiler.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeCXXCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeFiles\3.6.1\CMakeRCCompiler.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeRCInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlew.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlm.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\SDK\cmake\FindGlfw3.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindOpenGL.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageHandleStandardArgs.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\FindPackageMessage.cmake;D:\School\ME-557-2016_dp\cmake-3.6.1-win64-x64\cmake-3.6.1-win64-x64\share\cmake-3.6\Modules\CMakeParseArguments.cmake;D:\School\ME-557-2016_dp\Class Project\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\School\ME-557-2016_dp\Class Project\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/School/ME-557-2016_dp/Class Project/ZERO_CHECK.vcxproj">
+      <Project>6147F2E4-023E-3CAB-B6E2-45C5646D5F2A</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/School/ME-557-2016_dp/Class Project/HCI557_ObjLoader.vcxproj">
+      <Project>344A1788-F8AE-3128-984E-151520714C39</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -217,12 +217,8 @@ int main(int argc, const char * argv[])
     apperance_0->setMaterial(material_0);
     apperance_0->finalize();
     
-
-	
-
     // If you want to change appearance parameters after you init the object, call the update function
     apperance_0->updateLightSources();
-	
 	
 	glm::mat4 transform_scale = glm::scale(glm::vec3(7.0, 7.0f, 7.0f));
 	glm::mat4 transform_translate_1 = glm::translate(glm::vec3(3.0f, 3.0f, 3.0f));

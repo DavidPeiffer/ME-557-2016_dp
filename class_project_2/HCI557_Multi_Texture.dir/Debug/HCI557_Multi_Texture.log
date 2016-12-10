@@ -1,0 +1,28 @@
+﻿  main_multi_texture.cpp
+d:\school\me-557-2016_dp\class_project_2\Texture.h(45): error C2011: 'GLTexture': 'class' type redefinition
+  d:\school\me-557-2016_dp\gl_common\Texture.h(45): note: see declaration of 'GLTexture'
+d:\school\me-557-2016_dp\class_project_2\Texture.h(118): error C2011: 'GLMultiTexture': 'class' type redefinition
+  d:\school\me-557-2016_dp\gl_common\Texture.h(118): note: see declaration of 'GLMultiTexture'
+d:\school\me-557-2016_dp\class_project_2\Texture.h(195): error C2011: 'GLMipMapTexture': 'class' type redefinition
+  d:\school\me-557-2016_dp\gl_common\Texture.h(195): note: see declaration of 'GLMipMapTexture'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(81): warning C4305: '=': truncation from 'double' to 'float'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(92): warning C4305: '=': truncation from 'double' to 'float'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(95): warning C4305: '=': truncation from 'double' to 'float'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(115): error C2027: use of undefined type 'GLMultiTexture'
+  d:\school\me-557-2016_dp\gl_common\Texture.h(118): note: see declaration of 'GLMultiTexture'
+  d:\school\me-557-2016_dp\gl_common\Texture.h(118): note: see declaration of 'GLMultiTexture'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(116): error C2027: use of undefined type 'GLMultiTexture'
+  d:\school\me-557-2016_dp\gl_common\Texture.h(118): note: see declaration of 'GLMultiTexture'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(116): error C2227: left of '->loadAndCreateTextures' must point to class/struct/union/generic type
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(188): error C2027: use of undefined type 'GLMultiTexture'
+  d:\school\me-557-2016_dp\gl_common\Texture.h(118): note: see declaration of 'GLMultiTexture'
+D:\School\ME-557-2016_dp\class_project_2\main_multi_texture.cpp(188): error C2227: left of '->setTextureBlendMode' must point to class/struct/union/generic type
+  Texture.cpp
+D:\School\ME-557-2016_dp\gl_common\Texture.cpp(39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\Texture.cpp(69): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+D:\School\ME-557-2016_dp\gl_common\Texture.cpp(588): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\Texture.cpp(612): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+D:\School\ME-557-2016_dp\gl_common\Texture.cpp(673): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...

@@ -1,0 +1,4 @@
+﻿  main_picking.cpp
+D:\School\ME-557-2016_dp\class_project_picking\main_picking.cpp(196): warning C4305: '=': truncation from 'double' to 'float'
+D:\School\ME-557-2016_dp\class_project_picking\main_picking.cpp(476): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  HCI557_Picking.vcxproj -> D:\School\ME-557-2016_dp\class_project_picking\Release\HCI557_Picking.exe

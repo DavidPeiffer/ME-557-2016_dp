@@ -1,0 +1,4 @@
+﻿  main_model_loader_example.cpp
+D:\School\ME-557-2016_dp\class_project\main_model_loader_example.cpp(187): warning C4305: '=': truncation from 'double' to 'float'
+D:\School\ME-557-2016_dp\class_project\main_model_loader_example.cpp(199): warning C4305: '=': truncation from 'double' to 'float'
+  HCI557_ObjLoader.vcxproj -> D:\School\ME-557-2016_dp\class_project\Debug\HCI557_ObjLoader.exe

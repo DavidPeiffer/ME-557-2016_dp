@@ -1,7 +1,7 @@
 
 
 #include "GLObjectObj.h"
-
+#include "Texture.h"
 #include <algorithm>
 
 
@@ -10,7 +10,7 @@ _file_and_path(filename)
 {
     
     _file_ok = false;
-    _file_ok =load_obj(filename.c_str(), _vertices, _normals, _elements);
+    _file_ok =load_obj(filename.c_str(), _vertices, _normals, _textures, _elements);
    
 }
 
@@ -116,7 +116,7 @@ bool GLObjectObj::extractNextFace3(string& in, string& out, int& pointIdx, int& 
 
 
 
-bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, vector<glm::vec3> &normals, vector<GLuint> &elements)
+bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, vector<glm::vec3> &normals, vector<glm::vec3> &textures, vector<GLuint> &elements)
 {
     ifstream in(filename, ios::in);
     if (!in)
@@ -131,7 +131,10 @@ bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, ve
     vector<glm::vec3> temp_vertices;
     vector<glm::vec3> temp_index_normal2point;
     vector<glm::vec3> temp_index_triangle;
-    vector<glm::vec3> temp_index_textures;
+    
+	vector<glm::vec3> temp_textures;
+	vector<glm::vec3> temp_index_textures;
+	
     
     string line;
     while (getline(in, line))
@@ -226,6 +229,12 @@ bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, ve
             glm::vec3 n; s >> n.x; s >> n.y; s >> n.z;
             temp_normals.push_back(n);
         }
+        else if (line.substr(0,3) == "vt "){
+            istringstream s(line.substr(3));
+            glm::vec3 t; s >> t.x; s >> t.y, s >> t.z;
+            temp_textures.push_back(t);
+        }
+
         else if (line.substr(0,7) == "mtllib ")
         {
             istringstream s(line.substr(7));
@@ -254,10 +263,12 @@ bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, ve
     
     vertices.clear();
     normals.clear();
+    textures.clear();
     for(int i=0; i<temp_index_triangle.size(); i++)
     {
         glm::vec3 pointIdx = temp_index_triangle[i];
         glm::vec3 normalIdx = temp_index_normal2point[i];
+        glm::vec3 TexturesIdx = temp_index_textures[i];
         
         // the three points of one triangle
         // -1 since obj does not use the index 0
@@ -269,6 +280,10 @@ bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, ve
         normals.push_back(temp_normals[normalIdx.y-1]);
         normals.push_back(temp_normals[normalIdx.z-1]);
         
+		textures.push_back(TexturesIdx);
+        textures.push_back(temp_textures[TexturesIdx.x-1]);
+        textures.push_back(temp_textures[TexturesIdx.y-1]);
+		textures.push_back(temp_textures[TexturesIdx.z - 1]);
     }
     
     

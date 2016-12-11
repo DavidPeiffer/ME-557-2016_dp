@@ -130,15 +130,47 @@ void handle_pick(int selected_object_id)
         // In this case, and for training reasonse (not hiding the code, this is a switch-case control flow.
         switch(g_selected_object_id)
         {
+		case 1:
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected";
+			setSelectColor(loadedModel1->getProgram(), false);
+			g_selected_object_id = 0;
+			break;
+		case 2:
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected";
+			setSelectColor(loadedModel2->getProgram(), false);
+			g_selected_object_id = 0;
+			break;
+		case 3:
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected";
+			setSelectColor(loadedModel3->getProgram(), false);
+			g_selected_object_id = 0;
+			break;
         case 4:
-            setSelectColor(loadedModel2->getProgram(), false);
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected"; 
+			setSelectColor(loadedModel4->getProgram(), false);
             g_selected_object_id = 0;
             break;
+		case 5:
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected";
+			setSelectColor(loadedModel5->getProgram(), false);
+			g_selected_object_id = 0;
+			break;
+		case 6:
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected";
+			setSelectColor(loadedModel6->getProgram(), false);
+			g_selected_object_id = 0;
+			break;
+		case 7:
+			// cout << "object 2 selected" << "Object " << to_string(selected_object_id) << " selected";
+			setSelectColor(loadedModel7->getProgram(), false);
+			g_selected_object_id = 0;
+			break;
         case 8:
-            setSelectColor(loadedModel1->getProgram(), false);
+			setSelectColor(loadedModel8->getProgram(), false);
             g_selected_object_id = 0;
             break;
         }
+		cout << "Object " << to_string(selected_object_id) << " selected\n";
 
     }
     
@@ -146,17 +178,39 @@ void handle_pick(int selected_object_id)
     // Now we change the color of the selected object
     switch(selected_object_id)
     {
+	case 1:
+		setSelectColor(loadedModel1->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
+	case 2:
+		setSelectColor(loadedModel2->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
+	case 3:
+		setSelectColor(loadedModel3->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
     case 4:
-        setSelectColor(loadedModel2->getProgram(), true);
+        setSelectColor(loadedModel4->getProgram(), true);
         g_selected_object_id = selected_object_id;
         break;
-    case 8:
-        setSelectColor(loadedModel1->getProgram(), true);
-        g_selected_object_id = selected_object_id;
-        break;
+	case 5:
+		setSelectColor(loadedModel5->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
+	case 6:
+		setSelectColor(loadedModel6->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
+	case 7:
+		setSelectColor(loadedModel7->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
+	case 8:
+		setSelectColor(loadedModel8->getProgram(), true);
+		g_selected_object_id = selected_object_id;
+		break;
     }
-
-
 }
 
 
@@ -165,7 +219,7 @@ int main(int argc, const char * argv[])
 {
 
 
-    int we = colorToInteger(0, 1, 1,0);
+    // int we = colorToInteger(0, 1, 1,0);
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +243,8 @@ int main(int argc, const char * argv[])
     
     
     // create an apperance object.
-    GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+    // GLAppearance* appearance_neutral = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* appearance_neutral = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
     
     GLDirectLightSource  light_source;
     light_source._lightPos = glm::vec4(20.0,20.0,0.0, 0.0);
@@ -197,9 +252,17 @@ int main(int argc, const char * argv[])
     light_source._specular_intensity = 1.5;
     light_source._diffuse_intensity = 2.0;
     light_source._attenuation_coeff = 0.0;
+
+	GLDirectLightSource  light_source2;
+	light_source._lightPos = glm::vec4(-20.0, -20.0, 0.0, 0.0);
+	light_source._ambient_intensity = 0.2;
+	light_source._specular_intensity = 1.5;
+	light_source._diffuse_intensity = 2.0;
+	light_source._attenuation_coeff = 0.0;
     
     // add the light to this apperance object
-    apperance_0->addLightSource(light_source);
+    appearance_neutral->addLightSource(light_source);
+	appearance_neutral->addLightSource(light_source2);
     
     // Create a material object
     GLMaterial material_0;
@@ -210,25 +273,28 @@ int main(int argc, const char * argv[])
     material_0._transparency = 1.0;
     
     // Add the material to the apperance object
-    apperance_0->setMaterial(material_0);
+    appearance_neutral->setMaterial(material_0);
 
 
 	//************************************************************************************************
 	// Add a texture
-	GLMultiTexture* texture = new GLMultiTexture();
+	// GLMultiTexture* texture = new GLMultiTexture();
+
+	GLTexture* texture_0 = new GLTexture();
+
 	// int texid = texture->loadAndCreateTextures("../data/textures/texture_brick.bmp", "../data/textures/light_512_512a.bmp");
-	int texid = texture->loadAndCreateTextures("../models_for_project/simple_texture.bmp", "../models_for_project/simple_texture.bmp");
+	int texid = texture_0->loadAndCreateTexture("../models_for_project/simple_texture.bmp");
 
-	apperance_0->setTexture(texture);
+	appearance_neutral->setTexture(texture_0);
 
 
 
-    apperance_0->finalize();
-    
+    appearance_neutral->finalize();
 
-    // If you want to change appearance parameters after you init the object, call the update function
-    apperance_0->updateLightSources();
-    
+
+	// If you want to change appearance parameters after you init the object, call the update function
+    appearance_neutral->updateLightSources();
+
     
 	// Create a material object
 	GLMaterial material_yellow;
@@ -240,16 +306,15 @@ int main(int argc, const char * argv[])
 
 
      // create an additional apperance object.
-    GLAppearance* apperance_1 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_selected = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
    
-    apperance_1->addLightSource(light_source);
+	apperance_selected->addLightSource(light_source);
 
 	// Add the material to the apperance object
-	apperance_1->setMaterial(material_yellow);
-	apperance_1->finalize();
+	apperance_selected->setMaterial(material_yellow);
+	apperance_selected->finalize();
 
-
-	GLAppearance* apperance_2 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_2 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
 
 	apperance_2->addLightSource(light_source);
 
@@ -265,13 +330,51 @@ int main(int argc, const char * argv[])
 	apperance_2->setMaterial(material_orange);
 	apperance_2->finalize();
     
-    
+
+	// DAVID CODE
+	// create an additional apperance objects (3-8).
+	GLAppearance* apperance_3 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
+	apperance_3->addLightSource(light_source);
+	apperance_3->setMaterial(material_yellow);
+	apperance_3->finalize();
+
+	GLAppearance* apperance_4 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
+	apperance_4->addLightSource(light_source);
+	apperance_4->setMaterial(material_yellow);
+	apperance_4->finalize();
+
+	GLAppearance* apperance_5 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
+	apperance_5->addLightSource(light_source);
+	apperance_5->setMaterial(material_yellow);
+	apperance_5->finalize();
+
+	GLAppearance* apperance_6 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
+	apperance_6->addLightSource(light_source);
+	apperance_6->setMaterial(material_yellow);
+	apperance_6->finalize();
+
+	GLAppearance* apperance_7 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
+	apperance_7->addLightSource(light_source);
+	apperance_7->setMaterial(material_yellow);
+	apperance_7->finalize();
+
+	GLAppearance* apperance_8 = new GLAppearance("../class_project_shaders/multi_vertex_lights_ext.vs", "../class_project_shaders/multi_vertex_lights.fs");
+	apperance_8->addLightSource(light_source);
+	apperance_8->setMaterial(material_yellow);
+	apperance_8->finalize();
+
+
+
+	// END DAVID CODE
+
+
+
 
 
     
     // loadedModel1 = new GLObjectObj("../data/teapot_t.obj");
 	loadedModel1 = new GLObjectObj("../models_for_project/1.obj");
-    loadedModel1->setApperance(*apperance_0);
+    loadedModel1->setApperance(*appearance_neutral);
     loadedModel1->init();
     
 
@@ -281,7 +384,7 @@ int main(int argc, const char * argv[])
     
     // loadedModel2 = new GLObjectObj("../data/box_t.obj");
 	loadedModel2 = new GLObjectObj("../models_for_project/2.obj");
-    loadedModel2->setApperance(*apperance_1);
+    loadedModel2->setApperance(*apperance_selected);
     loadedModel2->init();
     
 	glm::mat4 tranform_2 =   glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f)) ;
@@ -290,7 +393,7 @@ int main(int argc, const char * argv[])
 
 
 	loadedModel3 = new GLObjectObj("../models_for_project/3.obj");
-	loadedModel3->setApperance(*apperance_2);
+	loadedModel3->setApperance(*apperance_3);
 	loadedModel3->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
@@ -299,7 +402,7 @@ int main(int argc, const char * argv[])
 
 
 	loadedModel4 = new GLObjectObj("../models_for_project/4.obj");
-	loadedModel4->setApperance(*apperance_2);
+	loadedModel4->setApperance(*apperance_4);
 	loadedModel4->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
@@ -308,7 +411,7 @@ int main(int argc, const char * argv[])
 
 
 	loadedModel5 = new GLObjectObj("../models_for_project/5.obj");
-	loadedModel5->setApperance(*apperance_1);
+	loadedModel5->setApperance(*apperance_5);
 	loadedModel5->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
@@ -317,7 +420,7 @@ int main(int argc, const char * argv[])
 
 
 	loadedModel6 = new GLObjectObj("../models_for_project/6.obj");
-	loadedModel6->setApperance(*apperance_1);
+	loadedModel6->setApperance(*apperance_6);
 	loadedModel6->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
@@ -326,7 +429,7 @@ int main(int argc, const char * argv[])
 
 
 	loadedModel7 = new GLObjectObj("../models_for_project/7.obj");
-	loadedModel7->setApperance(*apperance_1);
+	loadedModel7->setApperance(*apperance_7);
 	loadedModel7->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
@@ -335,7 +438,7 @@ int main(int argc, const char * argv[])
 
 
 	loadedModel8 = new GLObjectObj("../models_for_project/8.obj");
-	loadedModel8->setApperance(*apperance_1);
+	loadedModel8->setApperance(*apperance_8);
 	loadedModel8->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
@@ -343,12 +446,12 @@ int main(int argc, const char * argv[])
 
 
 
-	loadedModel3 = new GLObjectObj("../models_for_project/3.obj");
-	loadedModel3->setApperance(*apperance_1);
-	loadedModel3->init();
+	// loadedModel3 = new GLObjectObj("../models_for_project/3.obj");
+	// loadedModel3->setApperance(*apperance_selected);
+	// loadedModel3->init();
 
 	// glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
-	loadedModel3->setMatrix(tranform_2);
+	// loadedModel3->setMatrix(tranform_2);
 
 
 
@@ -359,19 +462,77 @@ int main(int argc, const char * argv[])
     //// 2. Set a select color and remember the position of the select-switch.
     //// 3. Set the values.
     
-    glUseProgram(apperance_0->getProgram());
-    int l0 = glGetUniformLocation(apperance_0->getProgram(), "select_mode");
-    int sel0 = glGetUniformLocation(apperance_0->getProgram(), "is_selected");
-    glUniform1i(l0, false);
-    glUniform1i(sel0, false);
-    glUniform4f( glGetUniformLocation(apperance_0->getProgram(), "select_color_id"), 1.0,0.0,0.0,1.0 );
-    
-    glUseProgram(apperance_1->getProgram());
-    int l1 = glGetUniformLocation(apperance_1->getProgram(), "select_mode");
-    int sel1 = glGetUniformLocation(apperance_1->getProgram(), "is_selected");
-    glUniform1i(l1, false);
-    glUniform1i(sel1, false);
-    glUniform4f( glGetUniformLocation(apperance_1->getProgram(), "select_color_id"), 0.0,1.0,0.0,1.0 );
+
+	// 0
+	glUseProgram(appearance_neutral->getProgram());
+	int l0 = glGetUniformLocation(appearance_neutral->getProgram(), "select_mode");
+	int sel0 = glGetUniformLocation(appearance_neutral->getProgram(), "is_selected");
+	glUniform1i(l0, false);
+	glUniform1i(sel0, false);
+	glUniform4f(glGetUniformLocation(appearance_neutral->getProgram(), "select_color_id"), 0.0, 0.0, 0.0, 1.0);
+	
+	// 1
+	glUseProgram(apperance_2->getProgram());
+	int l1 = glGetUniformLocation(apperance_2->getProgram(), "select_mode");
+	int sel1 = glGetUniformLocation(apperance_2->getProgram(), "is_selected");
+	glUniform1i(l1, false);
+	glUniform1i(sel1, false);
+	glUniform4f(glGetUniformLocation(apperance_2->getProgram(), "select_color_id"), 0.0, 0.0, 1.0, 1.0);
+
+	// 2
+	glUseProgram(apperance_2->getProgram());
+	int l2 = glGetUniformLocation(apperance_2->getProgram(), "select_mode");
+	int sel2 = glGetUniformLocation(apperance_2->getProgram(), "is_selected");
+	glUniform1i(l2, false);
+	glUniform1i(sel2, false);
+	glUniform4f(glGetUniformLocation(apperance_2->getProgram(), "select_color_id"), 0.0, 1.0, 0.0, 1.0);
+
+	// 3
+    glUseProgram(apperance_selected->getProgram());
+    int l3 = glGetUniformLocation(apperance_selected->getProgram(), "select_mode");
+    int sel3 = glGetUniformLocation(apperance_selected->getProgram(), "is_selected");
+    glUniform1i(l3, false);
+    glUniform1i(sel3, false);
+    glUniform4f( glGetUniformLocation(apperance_selected->getProgram(), "select_color_id"), 0.0,1.0,1.0,1.0 );
+
+	// 4
+	glUseProgram(apperance_selected->getProgram());
+	int l4 = glGetUniformLocation(apperance_selected->getProgram(), "select_mode");
+	int sel4 = glGetUniformLocation(apperance_selected->getProgram(), "is_selected");
+	glUniform1i(l4, false);
+	glUniform1i(sel4, false);
+	glUniform4f(glGetUniformLocation(apperance_selected->getProgram(), "select_color_id"), 1.0, 0.0, 0.0, 1.0);
+
+	// 5
+	glUseProgram(appearance_neutral->getProgram());
+	int l5 = glGetUniformLocation(appearance_neutral->getProgram(), "select_mode");
+	int sel5 = glGetUniformLocation(appearance_neutral->getProgram(), "is_selected");
+	glUniform1i(l5, false);
+	glUniform1i(sel5, false);
+	glUniform4f(glGetUniformLocation(appearance_neutral->getProgram(), "select_color_id"), 1.0, 0.0, 1.0, 1.0);
+
+	// 6
+	glUseProgram(appearance_neutral->getProgram());
+	int l6 = glGetUniformLocation(appearance_neutral->getProgram(), "select_mode");
+	int sel6 = glGetUniformLocation(appearance_neutral->getProgram(), "is_selected");
+	glUniform1i(l6, false);
+	glUniform1i(sel6, false);
+	glUniform4f(glGetUniformLocation(appearance_neutral->getProgram(), "select_color_id"), 1.0, 1.0, 0.0, 1.0);
+
+	// 7
+	glUseProgram(appearance_neutral->getProgram());
+	int l7 = glGetUniformLocation(appearance_neutral->getProgram(), "select_mode");
+	int sel7 = glGetUniformLocation(appearance_neutral->getProgram(), "is_selected");
+	glUniform1i(l7, false);
+	glUniform1i(sel7, false);
+	glUniform4f(glGetUniformLocation(appearance_neutral->getProgram(), "select_color_id"), 1.0, 1.0, 1.0, 1.0);
+
+
+	
+	
+
+
+
     glUseProgram(0);
     
     
@@ -440,7 +601,7 @@ int main(int argc, const char * argv[])
         
         // 3. Render the first object
         // Switch to seletion mode and render the first object
-        glUseProgram(apperance_0->getProgram());
+        glUseProgram(appearance_neutral->getProgram());
         glUniform1i(l0, true);
         
         // render
@@ -449,12 +610,24 @@ int main(int argc, const char * argv[])
         
         // 4. Render the second object
         // Switch to seletion mode and render the first object
-        glUseProgram(apperance_1->getProgram());
+        glUseProgram(apperance_selected->getProgram());
         glUniform1i(l1, true);
         
         // render
         loadedModel2->draw();
-        
+
+
+		// DAVID CODE
+		// Draw all objects for selection mode
+		loadedModel3->draw();
+		loadedModel4->draw();
+		loadedModel5->draw();
+		loadedModel6->draw();
+		loadedModel7->draw();
+		loadedModel8->draw();
+        // END DAVID CODE
+
+
         // switch back.
         glUniform1i(l1, false);
         

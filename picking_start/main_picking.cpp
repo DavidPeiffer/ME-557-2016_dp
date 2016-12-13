@@ -62,9 +62,17 @@ int g_selected_object_id = 0;
 
 GLObjectObj* loadedModel0 = NULL; // this is a teapot
 GLObjectObj* loadedModel1 = NULL; // this is a box
+GLObjectObj* loadedModel2 = NULL; // this is a box
+GLObjectObj* loadedModel3 = NULL; // this is a box
 GLPlane3D* plane_1 = NULL; // Cutting Plane
 GLPlane3D* plane_2 = NULL; // Cutting Plane
 GLPlane3D* plane_3 = NULL; // Cutting Plane
+
+
+// These variables will be used to display or hide the respective planes
+bool ShowPlane1 = false;
+bool ShowPlane2 = true;
+bool ShowPlane3 = false;
 
 
 /**
@@ -182,20 +190,16 @@ int main(int argc, const char * argv[])
     // coordinate system
     CoordSystem* cs = new CoordSystem(40.0);
     
-    
-    // create an apperance object.
-    GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-    
-    GLDirectLightSource  light_source;
+#pragma region Lights
+	GLDirectLightSource  light_source;
     light_source._lightPos = glm::vec4(20.0,20.0,0.0, 0.0);
     light_source._ambient_intensity = 0.2;
     light_source._specular_intensity = 1.5;
     light_source._diffuse_intensity = 2.0;
     light_source._attenuation_coeff = 0.0;
-    
-    // add the light to this apperance object
-    apperance_0->addLightSource(light_source);
-    
+#pragma endregion
+
+#pragma region Materials
     // Create a material object
     GLMaterial material_0;
     material_0._diffuse_material = glm::vec3(0.0, 0.2, 0.8);
@@ -203,30 +207,16 @@ int main(int argc, const char * argv[])
     material_0._specular_material = glm::vec3(0.1, 0.1, 0.1);
     material_0._shininess = 12.0;
     material_0._transparency = 1.0;
-    
-    // Add the material to the apperance object
-    apperance_0->setMaterial(material_0);
-    apperance_0->finalize();
-    
 
-    // If you want to change appearance parameters after you init the object, call the update function
-    apperance_0->updateLightSources();
-    
-    
-     // create an additional apperance object.
-    GLAppearance* apperance_1 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-   
-    apperance_1->addLightSource(light_source);
+	// Create a material object
+	GLMaterial material_yellow;
+	material_yellow._diffuse_material = glm::vec3(0.8, 0.9, 0.0);
+	material_yellow._ambient_material = glm::vec3(0.8, 0.9, 0.0);
+	material_yellow._specular_material = glm::vec3(0.1, 0.1, 0.1);
+	material_yellow._shininess = 12.0;
+	material_yellow._transparency = 1.0;
 
-   
-     // Create a material object
-    GLMaterial material_yellow;
-    material_yellow._diffuse_material = glm::vec3(0.8, 0.9, 0.0);
-    material_yellow._ambient_material = glm::vec3(0.8, 0.9, 0.0);
-    material_yellow._specular_material = glm::vec3(0.1, 0.1, 0.1);
-    material_yellow._shininess = 12.0;
-    material_yellow._transparency = 1.0;
-    
+	// Create a material object
 	GLMaterial material_light_blue;
 	material_light_blue._diffuse_material = glm::vec3(0.0, 0.0, 1.0);
 	material_light_blue._ambient_material = glm::vec3(0.0, 0.0, 1.0);
@@ -234,20 +224,56 @@ int main(int argc, const char * argv[])
 	material_light_blue._shininess = 12.0;
 	material_light_blue._transparency = 0.5;
 
+#pragma endregion
 
-    // Add the material to the apperance object
-    apperance_1->setMaterial(material_yellow);
-    apperance_1->finalize();
-
-	// GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-	GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
-	GLAppearance* plane_2_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
-	GLAppearance* plane_3_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
-	
+#pragma region Textures
 	// Add a texture
 	GLMultiTexture* texture = new GLMultiTexture();
 	int texid = texture->loadAndCreateTextures("../data/textures/texture_brick.bmp", "../data/textures/light_512_512a.bmp");
 	// int texid = texture->loadAndCreateTexture("../data/textures/texture_earth_128x128_a.bmp");
+#pragma endregion
+
+#pragma region Apperances
+    
+	// create an apperance object.
+	GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_1 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_2 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_3 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+
+	GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
+	GLAppearance* plane_2_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
+	GLAppearance* plane_3_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
+
+	// add the light to this apperance object
+	apperance_0->addLightSource(light_source);
+	apperance_0->setMaterial(material_0);
+    apperance_0->finalize();
+
+	apperance_1->addLightSource(light_source);
+	apperance_1->setMaterial(material_0);
+	apperance_1->finalize();
+
+	apperance_2->addLightSource(light_source);
+	apperance_2->setMaterial(material_0);
+	apperance_2->finalize();
+
+	apperance_3->addLightSource(light_source);
+	apperance_3->setMaterial(material_0);
+	apperance_3->finalize();
+    
+
+    // If you want to change appearance parameters after you init the object, call the update function
+    // apperance_0->updateLightSources();
+    
+    
+    // apperance_1->setMaterial(material_yellow);
+	// apperance_1->finalize();
+
+	// GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	
+	
+	
 	
 	
 	
@@ -267,12 +293,9 @@ int main(int argc, const char * argv[])
 	plane_3_apperance->finalize();
 
 
-	loadedModel0 = new GLObjectObj("../class_project_models/1.obj");
-	loadedModel0->setApperance(*apperance_0);
-	loadedModel0->init();
+	
 
-	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(1.0, 1.0f, 1.0f));
-	loadedModel0->setMatrix(tranform_1);
+
 
 
 	// Generate the cutting planes
@@ -293,19 +316,44 @@ int main(int argc, const char * argv[])
 
 
     
+#pragma region Model Loading
+	loadedModel0 = new GLObjectObj("../class_project_models/0.obj");
+	loadedModel0->setApperance(*apperance_0);
+	loadedModel0->init();
 
+	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(1.0, 1.0f, 1.0f));
+	loadedModel0->setMatrix(tranform_0);
+    
 
     
-    
-    loadedModel1 = new GLObjectObj("../class_project_models/2.obj");
+    loadedModel1 = new GLObjectObj("../class_project_models/1.obj");
     loadedModel1->setApperance(*apperance_1);
     loadedModel1->init();
     
+	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(1.0, 1.0f, 1.0f));
+    loadedModel1->setMatrix(tranform_1);
     
+
+
+	loadedModel2 = new GLObjectObj("../class_project_models/2.obj");
+	loadedModel2->setApperance(*apperance_2);
+	loadedModel2->init();
+
 	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(1.0, 1.0f, 1.0f));
-    loadedModel1->setMatrix(tranform_2);
-    
-    
+	loadedModel2->setMatrix(tranform_2);
+
+
+
+	loadedModel3 = new GLObjectObj("../class_project_models/3.obj");
+	loadedModel3->setApperance(*apperance_3);
+	loadedModel3->init();
+
+	glm::mat4 tranform_3 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(1.0, 1.0f, 1.0f));
+	loadedModel3->setMatrix(tranform_3);
+
+#pragma endregion
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //// Prepare the shader for the scissor test
     //// 1. Activate the shader programs
@@ -450,9 +498,29 @@ int main(int argc, const char * argv[])
        
         loadedModel0->draw();
         loadedModel1->draw();
-		plane_1->draw();
-		plane_2->draw();
-		plane_3->draw();
+		loadedModel2->draw();
+		loadedModel3->draw();
+
+		/*bool ShowPlane1 = false;
+		bool ShowPlane2 = true;
+		bool ShowPlane3 = false;*/
+
+
+		if (ShowPlane1)
+		{
+			plane_1->draw();
+		}
+
+		if (ShowPlane2)
+		{
+			plane_2->draw();
+		}
+		if (ShowPlane3)
+		{
+			plane_3->draw();
+		}
+		
+		
        
        
         //// This renders the objects

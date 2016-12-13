@@ -228,9 +228,9 @@ int main(int argc, const char * argv[])
 #pragma region Materials
 	// Create a material object
 	GLMaterial material_0;
-	material_0._diffuse_material = glm::vec3(0.0, 0.2, 0.8);
-	material_0._ambient_material = glm::vec3(0.0, 0.2, 0.8);
-	material_0._specular_material = glm::vec3(0.1, 0.1, 0.1);
+	material_0._diffuse_material = glm::vec3(0.5, 0.5, 0.5);
+	material_0._ambient_material = glm::vec3(0.5, 0.5, 0.5);
+	material_0._specular_material = glm::vec3(0.5, 0.5, 0.5);
 	material_0._shininess = 12.0;
 	material_0._transparency = 1.0;
 
@@ -250,65 +250,92 @@ int main(int argc, const char * argv[])
 	light_source._specular_intensity = 1.5;
 	light_source._diffuse_intensity = 2.0;
 	light_source._attenuation_coeff = 0.0;
+	
 
-	GLDirectLightSource light_source2;
-	light_source2._lightPos = glm::vec4(-20.0, -20.0, -20.0, 0.0);
-	light_source2._ambient_intensity = 0.2;
-	light_source2._specular_intensity = 1.5;
-	light_source2._diffuse_intensity = 2.0;
-	light_source2._attenuation_coeff = 0.0;
+	GLDirectLightSource origin_light;
+	origin_light._lightPos = glm::vec4(-20.0, -20.0, -20.0, 0.0);
+	origin_light._ambient_intensity = 0.2;
+	origin_light._specular_intensity = 1.5;
+	origin_light._diffuse_intensity = 2.0;
+	origin_light._attenuation_coeff = 0.0;
+	
+
+	GLSpotLightSource spotlight;
+	spotlight._lightPos = glm::vec4(-25.0, 25.0, 25.0, 1.0);
+	spotlight._ambient_intensity = 0.0;
+	spotlight._specular_intensity = 3;
+	spotlight._diffuse_intensity = 10.0;
+	spotlight._attenuation_coeff = 0.02;
+	spotlight._cone_angle = 10.0; // in degree
+	spotlight._cone_direction = glm::vec3(1.0, -1.0, -1.0);;
+
+	
+
 #pragma endregion
     
+#pragma region textures
+	//************************************************************************************************
+	// Add a texture
+	GLTexture* texture_0 = new GLTexture();
+	int texid = texture_0->loadAndCreateTexture("../models_for_project/simple_texture.bmp");
+	
+
+	// GLTexture* texture_0 = new GLTexture("../models_for_project/simple_texture.bmp")
+
+#pragma endregion
+
 #pragma region Setting Appearances
     // Create appearances 
-    GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-    apperance_0->addLightSource(light_source);
-	apperance_0->addLightSource(light_source2);
-    apperance_0->setMaterial(material_0);
-    apperance_0->finalize();
+    GLAppearance* apperance_0 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
+    // apperance_0->addLightSource(light_source);
+	// apperance_0->addLightSource(light_source2);
+	// apperance_0->addLightSource(origin_light);
+    apperance_0->setMaterial(material_light_blue);
+	apperance_0->setTexture(texture_0); 
+	apperance_0->finalize();
     
 	// create an additional apperance object.
-    GLAppearance* apperance_1 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+    GLAppearance* apperance_1 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
     apperance_1->addLightSource(light_source);
-	apperance_1->addLightSource(light_source2); 
+	apperance_1->addLightSource(origin_light);
 	apperance_1->setMaterial(material_light_blue);
     apperance_1->finalize();
 
 	// DAVID CODE
 	// Generate an appearance for each object in the model
-	GLAppearance* apperance_2 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_2 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_2->addLightSource(light_source);
-	apperance_2->addLightSource(light_source2);
+	// apperance_2->addLightSource(origin_light);
 	apperance_2->setMaterial(material_light_blue);
 	apperance_2->finalize();
 
-	GLAppearance* apperance_3 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_3 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_3->addLightSource(light_source);
-	apperance_3->addLightSource(light_source2);
+	apperance_3->addLightSource(origin_light);
 	apperance_3->setMaterial(material_light_blue);
 	apperance_3->finalize();
 
-	GLAppearance* apperance_4 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_4 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_4->addLightSource(light_source);
-	apperance_4->addLightSource(light_source2);
+	apperance_4->addLightSource(origin_light);
 	apperance_4->setMaterial(material_light_blue);
 	apperance_4->finalize();
 
-	GLAppearance* apperance_5 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_5 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_5->addLightSource(light_source);
-	apperance_5->addLightSource(light_source2);
+	apperance_5->addLightSource(origin_light);
 	apperance_5->setMaterial(material_light_blue);
 	apperance_5->finalize();
 
-	GLAppearance* apperance_6 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_6 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_6->addLightSource(light_source);
-	apperance_6->addLightSource(light_source2);
+	apperance_6->addLightSource(origin_light);
 	apperance_6->setMaterial(material_light_blue);
 	apperance_6->finalize();
 
-	GLAppearance* apperance_7 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_7 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_7->addLightSource(light_source);
-	apperance_7->addLightSource(light_source2);
+	apperance_7->addLightSource(origin_light);
 	apperance_7->setMaterial(material_light_blue);
 	apperance_7->finalize();
 
@@ -318,6 +345,7 @@ int main(int argc, const char * argv[])
 	// END DAVID CODE
 #pragma endregion
 
+#pragma region Attaching OBJ files to loadedModel objects
 	// Model 0 (Binary 2)
 	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
     
@@ -363,13 +391,6 @@ int main(int argc, const char * argv[])
 	loadedModel6->init();
 	loadedModel6->setMatrix(tranform_6);
 
-	/*glm::mat4 tranform_7 = glm::translate(glm::vec3(-6.0, -6.0f, 6.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
-	loadedModel7 = new GLObjectObj("../models_for_project/7.obj");
-	loadedModel7->setApperance(*apperance_7);
-	loadedModel7->init();
-	loadedModel7->setMatrix(tranform_7);*/
-    
-    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //// Prepare the shader for the scissor test
     //// 1. Activate the shader programs
@@ -384,6 +405,7 @@ int main(int argc, const char * argv[])
     glUniform1i(l0, false);
     glUniform1i(sel0, false);
     glUniform4f( glGetUniformLocation(apperance_0->getProgram(), "select_color_id"), 0.0, 0.0, 1.0, 1.0 );
+
     
 	// Binary 4
 	// Object 1
@@ -443,20 +465,6 @@ int main(int argc, const char * argv[])
 	glUniform1i(sel6, false);
 	glUniform4f(glGetUniformLocation(apperance_6->getProgram(), "select_color_id"), 1.0, 1.0, 1.0, 1.0);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     glUseProgram(0);
     
     
@@ -474,7 +482,7 @@ int main(int argc, const char * argv[])
     
     // This sets the camera to a new location
     // the first parameter is the eye position, the second the center location, and the third the up vector. 
-    SetViewAsLookAt(glm::vec3(12.0f, 12.0f, 65.5f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    SetViewAsLookAt(glm::vec3(0.0f, 0.0f, 65.5f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     
     // Enable depth test
@@ -527,13 +535,16 @@ int main(int argc, const char * argv[])
         // Switch to seletion mode and render the first object
 
 		#pragma region Shape 0
+		glUniform1i(l0, false);
 		glUseProgram(apperance_0->getProgram());
         glUniform1i(l0, true);
         
         // render
         loadedModel0->draw();
         glUniform1i(l0, false); // and switch to regular mode.
-		#pragma endregion
+		
+
+#pragma endregion
 
 		#pragma region Shape 1
         // 4. Render the second object
@@ -593,14 +604,14 @@ int main(int argc, const char * argv[])
 		loadedModel6->draw();
 #pragma endregion
 
-
+		
 
 
 		// loadedModel2->draw();
 		
         
         // switch back.
-        glUniform1i(l1, false);
+        // glUniform1i(l1, false);
 
 		// glUseProgram(apperance_0->getProgram());
 		// glUniform1i(l0, true);

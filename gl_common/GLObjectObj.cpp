@@ -280,10 +280,10 @@ bool GLObjectObj::load_obj(const char* filename, vector<glm::vec3> &vertices, ve
         normals.push_back(temp_normals[normalIdx.y-1]);
         normals.push_back(temp_normals[normalIdx.z-1]);
         
-		textures.push_back(TexturesIdx);
+		// textures.push_back(TexturesIdx);
         textures.push_back(temp_textures[TexturesIdx.x-1]);
         textures.push_back(temp_textures[TexturesIdx.y-1]);
-		textures.push_back(temp_textures[TexturesIdx.z - 1]);
+		textures.push_back(temp_textures[TexturesIdx.z-1]);
     }
     
     

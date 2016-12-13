@@ -14,6 +14,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <Texture.h>
 
 // GLEW include
 #include <GL/glew.h>

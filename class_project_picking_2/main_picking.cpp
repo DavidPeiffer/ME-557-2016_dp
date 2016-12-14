@@ -629,7 +629,7 @@ int main(int argc, const char * argv[])
         // Read the color information at that pixel.
         float col[4];
         glReadPixels(GetMouseX(), 600-GetMouseY(), 1, 1, GL_RGB,GL_FLOAT,&col);
-        // cout << "COLOR:\t" << col[0] << "\t" << col[1] << "\t" << col[2]  << "\t" << col[3] << endl;
+        cout << "COLOR:\t" << col[0] << "\t" << col[1] << "\t" << col[2]  << "\t" << col[3] << endl;
         
         int object_id = colorToInteger(col[0], col[1], col[2], col[3]);
         // cout << "Found object with id: " << object_id << endl;

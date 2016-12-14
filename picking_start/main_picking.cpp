@@ -578,7 +578,7 @@ int main(int argc, const char * argv[])
         cout << "COLOR:\t" << col[0] << "\t" << col[1] << "\t" << col[2]  << "\t" << col[3] << endl;
         
         int object_id = colorToInteger(col[0], col[1], col[2], col[3]);
-        // cout << "Found object with id: " << object_id << endl;
+        cout << "Found object with id: " << object_id << endl;
         
         
         

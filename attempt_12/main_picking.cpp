@@ -28,9 +28,8 @@
 #include "controls.h"
 #include "HCI557Common.h"
 #include "CoordSystem.h"
-#include "Plane3D.h"
+
 #include "GLObjectObj.h"
-#include "Texture.h"
 
 using namespace std;
 
@@ -60,98 +59,10 @@ int g_selected_object_id = 0;
 
 
 
-GLObjectObj* loadedModel0 = NULL; // this is a teapot
-GLObjectObj* loadedModel1 = NULL; // this is a box
+GLObjectObj* loadedModel1 = NULL; // this is a teapot
 GLObjectObj* loadedModel2 = NULL; // this is a box
-GLObjectObj* loadedModel3 = NULL; // this is a box
-GLPlane3D* plane_1 = NULL; // Cutting Plane
-GLPlane3D* plane_2 = NULL; // Cutting Plane
-GLPlane3D* plane_3 = NULL; // Cutting Plane
 
 
-						   // These variables will be used to display or hide the respective planes
-bool ShowPlane1 = true;
-bool ShowPlane2 = true;
-bool ShowPlane3 = true;
-
-// This is the callback we'll be registering with GLFW for keyboard handling.
-// The only thing we're doing here is setting up the window to close when we press ESC
-void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	bool move = false;
-
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// Cutting Plane Visibility
-
-
-	else if (key == 49 && action == GLFW_PRESS) // 1
-	{
-		// Toggle plane 1 visibility
-		cout << "key 1 pressed" << endl;
-		if (ShowPlane1)
-		{
-			ShowPlane1 = false;
-		}
-		else {
-			ShowPlane1 = true;
-		}
-	}
-	else if (key == 50 && action == GLFW_PRESS) // 2
-	{
-		cout << "key 2 pressed" << endl;
-		if (ShowPlane2)
-		{
-			ShowPlane2 = false;
-		}
-		else {
-			ShowPlane2 = true;
-		}
-	}
-	else if (key == 51 && action == GLFW_PRESS) // 3
-	{
-		cout << "key 3 pressed" << endl;
-		if (ShowPlane3)
-		{
-			ShowPlane3 = false;
-		}
-		else {
-			ShowPlane3 = true;
-		}
-	}
-
-	// g_change_texture_blend++;
-	// g_change_texture_blend = g_change_texture_blend % 3;
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// Translation
-	if ((key == 87 && action == GLFW_REPEAT) || (key == 87 && action == GLFW_PRESS)) // key w
-	{
-		cout << "key w pressed" << endl;
-	}
-	else if ((key == 83 && action == GLFW_REPEAT) || (key == 83 && action == GLFW_PRESS)) // key s
-	{
-		cout << "key s pressed" << endl;
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// Rotation
-	if ((key == 65 && action == GLFW_REPEAT) || (key == 65 && action == GLFW_PRESS)) // key a
-	{
-		cout << "key a pressed" << endl;
-	}
-
-	else if ((key == 68 && action == GLFW_REPEAT) || (key == 68 && action == GLFW_REPEAT)) // key d
-	{
-		cout << "key d pressed" << endl;
-	}
-	// cout << key << endl;
-}
 
 
 
@@ -213,15 +124,14 @@ void handle_pick(int selected_object_id)
         // In this case, and for training reasonse (not hiding the code, this is a switch-case control flow.
         switch(g_selected_object_id)
         {
-		case 2:
-			setSelectColor(loadedModel0->getProgram(), false);
-			g_selected_object_id = 0;
-			break;
-        case 4:
+        case 2:
+            setSelectColor(loadedModel2->getProgram(), false);
+            g_selected_object_id = 0;
+            break;
+        case 8:
             setSelectColor(loadedModel1->getProgram(), false);
             g_selected_object_id = 0;
             break;
-
         }
 
     }
@@ -230,16 +140,14 @@ void handle_pick(int selected_object_id)
     // Now we change the color of the selected object
     switch(selected_object_id)
     {
-    
     case 2:
-        setSelectColor(loadedModel0->getProgram(), true);
+        setSelectColor(loadedModel2->getProgram(), true);
         g_selected_object_id = selected_object_id;
         break;
-	case 4:
-		setSelectColor(loadedModel1->getProgram(), true);
-		g_selected_object_id = selected_object_id;
-		break;
-
+    case 8:
+        setSelectColor(loadedModel1->getProgram(), true);
+        g_selected_object_id = selected_object_id;
+        break;
     }
 
 
@@ -275,8 +183,7 @@ int main(int argc, const char * argv[])
     
     
     // create an apperance object.
-    // GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-	GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+    GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
     
     GLDirectLightSource  light_source;
     light_source._lightPos = glm::vec4(20.0,20.0,0.0, 0.0);
@@ -330,17 +237,17 @@ int main(int argc, const char * argv[])
     loadedModel1->init();
     
 
-	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
-	loadedModel1->setMatrix(tranform_1);
-
-
-	loadedModel2 = new GLObjectObj("../data/box_t.obj");
-	loadedModel2->setApperance(*apperance_1);
-	loadedModel2->init();
-
-
-	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 10.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
-	loadedModel2->setMatrix(tranform_2);
+    glm::mat4 tranform_1 =   glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f)) ;
+    loadedModel1->setMatrix(tranform_1);
+    
+    
+    loadedModel2 = new GLObjectObj("../data/box_t.obj");
+    loadedModel2->setApperance(*apperance_1);
+    loadedModel2->init();
+    
+    
+    glm::mat4 tranform_2 =   glm::translate(glm::vec3(0.0, 0.0f, 10.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f)) ;
+    loadedModel2->setMatrix(tranform_2);
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -349,16 +256,13 @@ int main(int argc, const char * argv[])
     //// 2. Set a select color and remember the position of the select-switch.
     //// 3. Set the values.
     
-	// Binary value 2
     glUseProgram(apperance_0->getProgram());
     int l0 = glGetUniformLocation(apperance_0->getProgram(), "select_mode");
     int sel0 = glGetUniformLocation(apperance_0->getProgram(), "is_selected");
     glUniform1i(l0, false);
     glUniform1i(sel0, false);
-    glUniform4f( glGetUniformLocation(apperance_0->getProgram(), "select_color_id"), 0.0, 0.0, 1.0, 1.0 );
+    glUniform4f( glGetUniformLocation(apperance_0->getProgram(), "select_color_id"), 0.0 ,0.0, 1.0, 1.0 );
     
-
-	// Binary value 4
     glUseProgram(apperance_1->getProgram());
     int l1 = glGetUniformLocation(apperance_1->getProgram(), "select_mode");
     int sel1 = glGetUniformLocation(apperance_1->getProgram(), "is_selected");
@@ -444,7 +348,7 @@ int main(int argc, const char * argv[])
         // Switch to seletion mode and render the first object
         glUseProgram(apperance_1->getProgram());
         glUniform1i(l1, true);
-
+        
         // render
         loadedModel2->draw();
         
@@ -464,10 +368,10 @@ int main(int argc, const char * argv[])
         // Read the color information at that pixel.
         float col[4];
         glReadPixels(GetMouseX(), 600-GetMouseY(), 1, 1, GL_RGB,GL_FLOAT,&col);
-        //cout << "COLOR:\t" << col[0] << "\t" << col[1] << "\t" << col[2]  << "\t" << col[3] << endl;
+        cout << "COLOR:\t" << col[0] << "\t" << col[1] << "\t" << col[2]  << "\t" << col[3] << endl;
         
         int object_id = colorToInteger(col[0], col[1], col[2], col[3]);
-        //cout << "Found object with id: " << object_id << endl;
+        cout << "Found object with id: " << object_id << endl;
         
         
         

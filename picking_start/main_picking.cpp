@@ -45,6 +45,8 @@ GLuint program;
 extern Trackball trackball;
 
 
+
+
 //////////////////////////////////////////////////////////////////////
 // Picking using the scissor test
 //
@@ -70,9 +72,89 @@ GLPlane3D* plane_3 = NULL; // Cutting Plane
 
 
 // These variables will be used to display or hide the respective planes
-bool ShowPlane1 = false;
+bool ShowPlane1 = true;
 bool ShowPlane2 = true;
-bool ShowPlane3 = false;
+bool ShowPlane3 = true;
+
+
+// This is the callback we'll be registering with GLFW for keyboard handling.
+// The only thing we're doing here is setting up the window to close when we press ESC
+void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	bool move = false;
+
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// Cutting Plane Visibility
+
+
+	else if (key == 49 && action == GLFW_PRESS) // 1
+	{
+		// Toggle plane 1 visibility
+		cout << "key 1 pressed" << endl;
+		if (ShowPlane1)
+		{
+			ShowPlane1 = false;
+		}
+		else {
+			ShowPlane1 = true;
+		}
+	}
+	else if (key == 50 && action == GLFW_PRESS) // 2
+	{
+		cout << "key 2 pressed" << endl;
+		if (ShowPlane2)
+		{
+			ShowPlane2 = false;
+		}
+		else {
+			ShowPlane2 = true;
+		}
+	}
+	else if (key == 51 && action == GLFW_PRESS) // 3
+	{
+		cout << "key 3 pressed" << endl;
+		if (ShowPlane3)
+		{
+			ShowPlane3 = false;
+		}
+		else {
+			ShowPlane3 = true;
+		}
+	}
+
+	// g_change_texture_blend++;
+	// g_change_texture_blend = g_change_texture_blend % 3;
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// Translation
+	if ((key == 87 && action == GLFW_REPEAT) || (key == 87 && action == GLFW_PRESS)) // key w
+	{
+		cout << "key w pressed" << endl;
+	}
+	else if ((key == 83 && action == GLFW_REPEAT) || (key == 83 && action == GLFW_PRESS)) // key s
+	{
+		cout << "key s pressed" << endl;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// Rotation
+	if ((key == 65 && action == GLFW_REPEAT) || (key == 65 && action == GLFW_PRESS)) // key a
+	{
+		cout << "key a pressed" << endl;
+	}
+
+	else if ((key == 68 && action == GLFW_REPEAT) || (key == 68 && action == GLFW_REPEAT)) // key d
+	{
+		cout << "key d pressed" << endl;
+	}
+	cout << key << endl;
+}
 
 
 /**
@@ -81,9 +163,11 @@ The digits should be either 0 or 1.
 */
 int colorToInteger(int r, int g, int b, int a)
 {
+
+	
     int selected_object_id = 0;
     
-    selected_object_id = selected_object_id << 1;
+	selected_object_id = selected_object_id << 1;
     selected_object_id |= r;
     selected_object_id = selected_object_id << 1;
     selected_object_id |= g;
@@ -92,7 +176,7 @@ int colorToInteger(int r, int g, int b, int a)
     selected_object_id = selected_object_id << 1;
     selected_object_id |= a;
 
-    return selected_object_id;
+	return selected_object_id;
 }
 
 
@@ -122,7 +206,7 @@ void handle_pick(int selected_object_id)
     {
         return;
     }
-    
+	
     // consider, an object is already picked, disable the pick color.
     // g_selected_object_id == 0, means, no object selected
     if(g_selected_object_id > 0)
@@ -134,33 +218,37 @@ void handle_pick(int selected_object_id)
         switch(g_selected_object_id)
         {
         case 4:
-            setSelectColor(loadedModel1->getProgram(), false);
+            setSelectColor(plane_1->getProgram(), false);
             g_selected_object_id = 0;
             break;
         case 8:
-            setSelectColor(loadedModel0->getProgram(), false);
+            setSelectColor(plane_2->getProgram(), false);
             g_selected_object_id = 0;
             break;
         }
 
     }
     
+	cout << "object " << to_string(selected_object_id) << " selected\n";
+	cout << "object " << to_string(g_selected_object_id) << " selected\n";
     
     // Now we change the color of the selected object
     switch(selected_object_id)
     {
     case 4:
-        setSelectColor(loadedModel1->getProgram(), true);
+		
+        setSelectColor(plane_1->getProgram(), true);
         g_selected_object_id = selected_object_id;
         break;
     case 8:
-        setSelectColor(loadedModel0->getProgram(), true);
+        setSelectColor(plane_2->getProgram(), true);
         g_selected_object_id = selected_object_id;
         break;
     }
 
 
 }
+
 
 
 
@@ -175,14 +263,16 @@ int main(int argc, const char * argv[])
     //// Init glfw, create a window, and init glew
     
     // Init the GLFW Window
-    window = initWindow();
+	window = initWindow();
     
     
     // Init the glew api
     initGlew();
     SetCameraManipulator(CameraTypes::CAMERA_MANIPULATOR);
 
-    
+
+	// Sets the camera closer to the objects
+	SetCameraDistance(10);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //// Create some models
@@ -192,11 +282,18 @@ int main(int argc, const char * argv[])
     
 #pragma region Lights
 	GLDirectLightSource  light_source;
-    light_source._lightPos = glm::vec4(20.0,20.0,0.0, 0.0);
+    light_source._lightPos = glm::vec4(20.0, 20.0, 20.0, 0.0);
     light_source._ambient_intensity = 0.2;
-    light_source._specular_intensity = 1.5;
-    light_source._diffuse_intensity = 2.0;
+    light_source._specular_intensity = 0.75;
+    light_source._diffuse_intensity = 0.75;
     light_source._attenuation_coeff = 0.0;
+
+	GLDirectLightSource  light_source2;
+	light_source2._lightPos = glm::vec4(-20.0, -20.0, -20.0, 0.0);
+	light_source2._ambient_intensity = 0.2;
+	light_source2._specular_intensity = 0.75;
+	light_source2._diffuse_intensity = 0.75;
+	light_source2._attenuation_coeff = 0.0;
 #pragma endregion
 
 #pragma region Materials
@@ -219,10 +316,10 @@ int main(int argc, const char * argv[])
 	// Create a material object
 	GLMaterial material_light_blue;
 	material_light_blue._diffuse_material = glm::vec3(0.0, 0.0, 1.0);
-	material_light_blue._ambient_material = glm::vec3(0.0, 0.0, 1.0);
+	material_light_blue._ambient_material = glm::vec3(0.0, 0.0, 0.0);
 	material_light_blue._specular_material = glm::vec3(0.1, 0.1, 0.1);
 	material_light_blue._shininess = 12.0;
-	material_light_blue._transparency = 0.5;
+	material_light_blue._transparency = 1.0;
 
 #pragma endregion
 
@@ -236,47 +333,48 @@ int main(int argc, const char * argv[])
 #pragma region Apperances
     
 	// create an apperance object.
-	GLAppearance* apperance_0 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-	GLAppearance* apperance_1 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
+	GLAppearance* apperance_0 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
+	GLAppearance* apperance_1 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	GLAppearance* apperance_2 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
 	GLAppearance* apperance_3 = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
 
-	GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
-	GLAppearance* plane_2_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
+	GLAppearance* plane_1_apperance = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
+	GLAppearance* plane_2_apperance = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
+
+	// GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
+	// GLAppearance* plane_2_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
 	GLAppearance* plane_3_apperance = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
 
 	// add the light to this apperance object
 	apperance_0->addLightSource(light_source);
+	apperance_0->addLightSource(light_source2);
 	apperance_0->setMaterial(material_0);
     apperance_0->finalize();
 
 	apperance_1->addLightSource(light_source);
+	apperance_1->addLightSource(light_source2);
 	apperance_1->setMaterial(material_0);
 	apperance_1->finalize();
 
 	apperance_2->addLightSource(light_source);
+	apperance_2->addLightSource(light_source2);
 	apperance_2->setMaterial(material_0);
 	apperance_2->finalize();
 
 	apperance_3->addLightSource(light_source);
+	apperance_3->addLightSource(light_source2);
 	apperance_3->setMaterial(material_0);
 	apperance_3->finalize();
-    
 
     // If you want to change appearance parameters after you init the object, call the update function
-    // apperance_0->updateLightSources();
-    
-    
+    // apperance_0->updateLightSources
     // apperance_1->setMaterial(material_yellow);
-	// apperance_1->finalize();
-
+	// apperance_1->finalize
 	// GLAppearance* plane_1_apperance = new GLAppearance("../data/shaders/multi_vertex_lights_ext.vs", "../data/shaders/multi_vertex_lights.fs");
-	
-	
-	
-	
-	
-	
+
+#pragma endregion
+
+#pragma region Assigning Apperance Properties
 	plane_1_apperance->setTexture(texture);
 	plane_1_apperance->addLightSource(light_source);
 	plane_1_apperance->setMaterial(material_light_blue);
@@ -292,12 +390,7 @@ int main(int argc, const char * argv[])
 	plane_3_apperance->setMaterial(material_light_blue);
 	plane_3_apperance->finalize();
 
-
-	
-
-
-
-
+#pragma endregion
 	// Generate the cutting planes
 #pragma region Plane Generation
 
@@ -342,7 +435,7 @@ int main(int argc, const char * argv[])
 	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(1.0, 1.0f, 1.0f));
 	loadedModel2->setMatrix(tranform_2);
 
-
+	
 
 	loadedModel3 = new GLObjectObj("../class_project_models/3.obj");
 	loadedModel3->setApperance(*apperance_3);
@@ -354,29 +447,31 @@ int main(int argc, const char * argv[])
 #pragma endregion
 
 
+
+#pragma region Scissor Test
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //// Prepare the shader for the scissor test
     //// 1. Activate the shader programs
     //// 2. Set a select color and remember the position of the select-switch.
     //// 3. Set the values.
     
-    glUseProgram(apperance_0->getProgram());
-    int l0 = glGetUniformLocation(apperance_0->getProgram(), "select_mode");
-    int sel0 = glGetUniformLocation(apperance_0->getProgram(), "is_selected");
+    glUseProgram(plane_1_apperance->getProgram());
+    int l0 = glGetUniformLocation(plane_1_apperance->getProgram(), "select_mode");
+    int sel0 = glGetUniformLocation(plane_1_apperance->getProgram(), "is_selected");
     glUniform1i(l0, false);
     glUniform1i(sel0, false);
-    glUniform4f( glGetUniformLocation(apperance_0->getProgram(), "select_color_id"), 1.0,0.0,0.0,1.0 );
+    glUniform4f( glGetUniformLocation(plane_1_apperance->getProgram(), "select_color_id"), 1.0,0.0,0.0,1.0 );
     
-    glUseProgram(apperance_1->getProgram());
-    int l1 = glGetUniformLocation(apperance_1->getProgram(), "select_mode");
-    int sel1 = glGetUniformLocation(apperance_1->getProgram(), "is_selected");
+    glUseProgram(plane_2_apperance->getProgram());
+    int l1 = glGetUniformLocation(plane_2_apperance->getProgram(), "select_mode");
+    int sel1 = glGetUniformLocation(plane_2_apperance->getProgram(), "is_selected");
     glUniform1i(l1, false);
     glUniform1i(sel1, false);
-    glUniform4f( glGetUniformLocation(apperance_1->getProgram(), "select_color_id"), 0.0,1.0,0.0,1.0 );
+    glUniform4f( glGetUniformLocation(plane_2_apperance->getProgram(), "select_color_id"), 0.0,1.0,0.0,1.0 );
     glUseProgram(0);
     
     
-
+#pragma endregion
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -398,8 +493,8 @@ int main(int argc, const char * argv[])
     // Enable depth test
     // ignore this line, it allows us to keep the distance value after we proejct each object to a 2d canvas.
 
-	// Depth test is disabled.  This prevents rendering issues when two objects occupy the same plane.
-    // glEnable(GL_DEPTH_TEST);
+	
+    glEnable(GL_DEPTH_TEST);
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -409,6 +504,12 @@ int main(int argc, const char * argv[])
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//// Here we set a new keyboard callback
+
+	// Set the keyboard callback so that when we press ESC, it knows what to do.
+	glfwSetKeyCallback(window, keyboard_callback);
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //// Main render loop
@@ -445,20 +546,20 @@ int main(int argc, const char * argv[])
         
         // 3. Render the first object
         // Switch to seletion mode and render the first object
-        glUseProgram(apperance_0->getProgram());
+        glUseProgram(plane_1_apperance->getProgram());
         glUniform1i(l0, true);
         
         // render
-        loadedModel0->draw();
+        plane_1->draw();
         glUniform1i(l0, false); // and switch to regular mode.
         
         // 4. Render the second object
         // Switch to seletion mode and render the first object
-        glUseProgram(apperance_1->getProgram());
+        glUseProgram(plane_2_apperance->getProgram());
         glUniform1i(l1, true);
         
         // render
-        loadedModel1->draw();
+		plane_2->draw();
         
         // switch back.
         glUniform1i(l1, false);
@@ -479,7 +580,7 @@ int main(int argc, const char * argv[])
         //cout << "COLOR:\t" << col[0] << "\t" << col[1] << "\t" << col[2]  << "\t" << col[3] << endl;
         
         int object_id = colorToInteger(col[0], col[1], col[2], col[3]);
-        //cout << "Found object with id: " << object_id << endl;
+        cout << "Found object with id: " << object_id << endl;
         
         
         
@@ -496,16 +597,8 @@ int main(int argc, const char * argv[])
         glClearBufferfv(GL_COLOR , 0, clear_color_white);
         glClearBufferfv(GL_DEPTH , 0, clear_depth);
        
-        loadedModel0->draw();
-        loadedModel1->draw();
-		loadedModel2->draw();
-		loadedModel3->draw();
 
-		/*bool ShowPlane1 = false;
-		bool ShowPlane2 = true;
-		bool ShowPlane3 = false;*/
-
-
+		glDisable(GL_DEPTH_TEST);
 		if (ShowPlane1)
 		{
 			plane_1->draw();
@@ -519,6 +612,21 @@ int main(int argc, const char * argv[])
 		{
 			plane_3->draw();
 		}
+		glEnable(GL_DEPTH_TEST);
+		
+        
+		loadedModel0->draw();
+        /*loadedModel1->draw();
+		loadedModel2->draw();
+		loadedModel3->draw();*/
+		
+		
+		/*bool ShowPlane1 = false;
+		bool ShowPlane2 = true;
+		bool ShowPlane3 = false;*/
+
+
+		
 		
 		
        

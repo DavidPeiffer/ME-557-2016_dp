@@ -115,7 +115,7 @@ int main(int argc, const char * argv[])
     GLMultiTexture* texture = new GLMultiTexture();
     int texid = texture->loadAndCreateTextures("../../data/textures/texture_brick.bmp", "../../data/textures/light_512_512a.bmp");
     //int texid = texture->loadAndCreateTexture("../../data/textures/texture_earth_128x128_a.bmp");
-    apperance_0->setTexture(texture);
+	apperance_0->setTexture(texture);
     
     //************************************************************************************************
     // Finalize the appearance object

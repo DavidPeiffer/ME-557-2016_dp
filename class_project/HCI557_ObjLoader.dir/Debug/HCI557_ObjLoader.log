@@ -1,4 +1,60 @@
-﻿  main_model_loader_example.cpp
+﻿  Texture.cpp
+..\gl_common\Texture.cpp(39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+..\gl_common\Texture.cpp(69): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+..\gl_common\Texture.cpp(588): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+..\gl_common\Texture.cpp(612): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+..\gl_common\Texture.cpp(673): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main_model_loader_example.cpp
 D:\School\ME-557-2016_dp\class_project\main_model_loader_example.cpp(187): warning C4305: '=': truncation from 'double' to 'float'
 D:\School\ME-557-2016_dp\class_project\main_model_loader_example.cpp(199): warning C4305: '=': truncation from 'double' to 'float'
+  CoordSystem.cpp
+  GLAppearance.cpp
+  GLObject.cpp
+  GLObjectObj.cpp
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(48): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(51): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(64): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(69): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(67): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(152): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(275): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(276): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(277): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(279): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(280): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(281): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(284): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(285): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(286): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLObjectObj.cpp(323): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  GLSphere.cpp
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(273): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(368): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(554): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(561): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(562): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(563): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(568): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(569): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(570): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(574): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(575): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(576): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(580): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(581): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\GLSphere.cpp(582): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  HCI557Common.cpp
+D:\School\ME-557-2016_dp\gl_common\HCI557Common.cpp(128): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\HCI557Common.cpp(129): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\School\ME-557-2016_dp\gl_common\HCI557Common.cpp(238): warning C4305: 'return': truncation from 'int' to 'bool'
+D:\School\ME-557-2016_dp\gl_common\HCI557Common.cpp(247): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+  Sphere3D.cpp
+  Generating Code...
+d:\school\me-557-2016_dp\gl_common\hci557common.cpp(75): warning C4715: 'GetCurrentCameraMatrix': not all control paths return a value
+d:\school\me-557-2016_dp\gl_common\hci557common.cpp(92): warning C4715: 'GetCurrentCameraTranslation': not all control paths return a value
   HCI557_ObjLoader.vcxproj -> D:\School\ME-557-2016_dp\class_project\Debug\HCI557_ObjLoader.exe

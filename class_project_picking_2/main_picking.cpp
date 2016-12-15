@@ -81,6 +81,8 @@ bool ShowPlane5 = true;
 bool ShowPlane6 = true;
 
 
+bool AnimateModel0 = false;
+
 double keyframefraction = 0;
 
 
@@ -245,10 +247,8 @@ This initializes the keyframes.
 void initKeyframeAnimation(void)
 {
 	myKeyframes[0.0] = Keyframe(0.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(0.0f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(2.0, 0.0, 0.0), angleAxis(0.57f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[0.7] = Keyframe(0.7, glm::vec3(3.5, 0.5, 0.0), angleAxis(1.28f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[0.8] = Keyframe(0.8, glm::vec3(1.2, 0.7, 0.0), angleAxis(1.53f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.9, 0.0), angleAxis(1.98f, glm::vec3(0.0, 0.1, 1.0)));
+	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, -5.0), angleAxis(1.0f, glm::vec3(3.1415, 0.0, 1.0)));
+	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.0, -10.0), angleAxis(2.0f, glm::vec3(3.1415 * 2, 0.0, 1.0)));
 }
 
 #pragma endregion
@@ -274,6 +274,7 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 		// Toggle plane 1 visibility
 		cout << "key 1 pressed" << endl;
 
+		AnimateModel0 = true;
 		// SetViewAsLookAt(glm::vec3(0.0f, 0.0f, 65.5f), glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		// SetViewAsMatrix(GetCurrentCameraMatrix());
 		
@@ -361,18 +362,18 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 	{
 		
 
-		keyframefraction += 0.01;
+		// keyframefraction += 0.01;
 
-		cout << "key w pressed.  keyframefraction = " << keyframefraction << endl;
+		cout << "key w pressed." << endl;
 
-		glm::mat4 w_tranform = glm::translate(glm::vec3(0.1, 0.1f, 0.1f)) * glm::scale(glm::vec3(5.0 + 5 * keyframefraction, 5.0 + 5 * keyframefraction, 5.0 + 5 * keyframefraction));
+		// glm::mat4 w_tranform = glm::translate(glm::vec3(0.1, 0.1f, 0.1f)) * glm::scale(glm::vec3(5.0 + 5 * keyframefraction, 5.0 + 5 * keyframefraction, 5.0 + 5 * keyframefraction));
 		
 		
 
 		// loadedModel0 = new GLObjectObj("../class_project_models/0.obj");
 		// loadedModel0->setApperance(*apperance_0);
 		// loadedModel0->init();
-		loadedModel0->setMatrix(w_tranform);
+		// loadedModel1->setMatrix(w_tranform);
 
 	}
 	else if ((key == 83 && action == GLFW_REPEAT) || (key == 83 && action == GLFW_PRESS)) // key s
@@ -985,29 +986,53 @@ int main(int argc, const char * argv[])
        
 		//////////////////////////////////////////////////////////////////
 		// Interpolate between keyframes
-		Keyframe k0, k1, k_res;
+		
 
-		float time = glfwGetTime();
+		
 
-		float f = getTimeFraction(time, 8.0); // we assume that the animation takes 8 seconds
+		if (AnimateModel0) {
 
-		int num = getKeyframes(myKeyframes, f, k0, k1);
 
-		bool ret = interpolateKeyframe(f, k0, k1, k_res);
+
+			Keyframe k0, k1, k_res;
+
+			float time = glfwGetTime();
+
+			float f = getTimeFraction(time, 8.0); // we assume that the animation takes 8 seconds
+
+			if (f = 1.0)
+			{
+				// Stop the animation when it's done.
+				AnimateModel0 = false;
+			}
+
+			int num = getKeyframes(myKeyframes, f, k0, k1);
+
+			bool ret = interpolateKeyframe(f, k0, k1, k_res);
+
+
+			cout << "k_res._p.x = " << to_string(k_res._p.x) << endl;
+
+
+			glm::mat4 new_model_matrix;
+
+			// new_model_marix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::scale(glm::vec3(5.0, 5.0y 5.0));
+
+			// Translate * Rotate * Scale the model
+			new_model_matrix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::rotate(k_res._t, glm::vec3(k_res._q.x, k_res._q.y, k_res._q.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+			// new_model_matrix = glm::rotate(k_res._t, glm::tvec3(1.0, 2.0, 2.0));
+			// new_model_matrix = glm::rotate(k_res._t, glm::vec3(1.0, 2.0, 2.0));
+
+
+			loadedModel0->setMatrix(new_model_matrix);
+
+			
+		}
 
 		// k_res.print();
 
 
-		cout << "k_res._p.x = " << to_string(k_res._p.x) << endl;
-
-
-		glm::mat4 new_model_matrix;
-
-		// new_model_marix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
 		
-		new_model_matrix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
-
-		loadedModel0->setMatrix(new_model_matrix);
 		
 		//
 		//////////////////////////////////////////////////////////////////

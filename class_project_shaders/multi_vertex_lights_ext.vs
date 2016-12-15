@@ -48,10 +48,6 @@ uniform struct Material {
 // The output color
 out vec4 pass_Color;
 
-// DAVID CODE
-out vec2 pass_TexCoord;
-// END DAVID CODE
-
 
 
 vec4 useLight(Light light, vec4 surfacePostion, vec4 normal_transformed, vec3 normal, Material material )

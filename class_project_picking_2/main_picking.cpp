@@ -128,6 +128,26 @@ typedef map<double, Keyframe> KeyframeAnimation;
 KeyframeAnimation myKeyframes;
 
 /*!
+@brief returns the time fraction for a given time and animation duration
+@param time - the current animation time, application runtime, etc. in seconds
+@param duration - the duration of the animation in seconds
+@return the time fraction in an interval between 0 and 1.
+*/
+float getTimeFraction(const float time, const float duration)
+{
+	// we cast to an int. this results in the number of
+	float interval = floor(time / duration);
+
+	// return the current interval time
+	float current_interval = time - interval*duration;
+
+	// return the fraction / position in our current timeline
+	float fraction = current_interval / duration;
+
+	return fraction;
+}
+
+/*!
 @brief returns the two keyframes for a given time.
 @param keyframes - a map with all keyframes of type KeyframeAnimation
 @param time - the time fraction between 0 and 1.
@@ -225,10 +245,10 @@ This initializes the keyframes.
 void initKeyframeAnimation(void)
 {
 	myKeyframes[0.0] = Keyframe(0.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(0.0f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.5, 0.0, 0.0), angleAxis(0.57f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[0.7] = Keyframe(0.7, glm::vec3(0.7, 0.5, 0.0), angleAxis(1.28f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[0.8] = Keyframe(0.8, glm::vec3(0.35, 0.7, 0.0), angleAxis(1.53f, glm::vec3(0.0, 0.0, 1.0)));
-	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.2, 0.9, 0.0), angleAxis(1.98f, glm::vec3(0.0, 0.1, 1.0)));
+	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(2.0, 0.0, 0.0), angleAxis(0.57f, glm::vec3(0.0, 0.0, 1.0)));
+	myKeyframes[0.7] = Keyframe(0.7, glm::vec3(3.5, 0.5, 0.0), angleAxis(1.28f, glm::vec3(0.0, 0.0, 1.0)));
+	myKeyframes[0.8] = Keyframe(0.8, glm::vec3(1.2, 0.7, 0.0), angleAxis(1.53f, glm::vec3(0.0, 0.0, 1.0)));
+	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.9, 0.0), angleAxis(1.98f, glm::vec3(0.0, 0.1, 1.0)));
 }
 
 #pragma endregion
@@ -255,7 +275,7 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 		cout << "key 1 pressed" << endl;
 
 		// SetViewAsLookAt(glm::vec3(0.0f, 0.0f, 65.5f), glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		
+		// SetViewAsMatrix(GetCurrentCameraMatrix());
 		
 	}
 	else if (key == 50 && action == GLFW_PRESS) // 2
@@ -533,17 +553,17 @@ int main(int argc, const char * argv[])
 #pragma region Materials
 	// Create a material object
 	GLMaterial material_0;
-	material_0._diffuse_material = glm::vec3(0.5, 0.5, 0.5);
-	material_0._ambient_material = glm::vec3(0.5, 0.5, 0.5);
-	material_0._specular_material = glm::vec3(0.5, 0.5, 0.5);
+	material_0._diffuse_material = glm::vec3(1.0, 1.0, 1.0);
+	material_0._ambient_material = glm::vec3(1.0, 1.0, 1.0);
+	material_0._specular_material = glm::vec3(1.0, 1.0, 1.0);
 	material_0._shininess = 12.0;
 	material_0._transparency = 1.0;
 
 	// Create a material object
 	GLMaterial material_light_blue;
-	material_light_blue._diffuse_material = glm::vec3(0.0, 0.5, 0.5);
-	material_light_blue._ambient_material = glm::vec3(0.0, 0.5, 0.5);
-	material_light_blue._specular_material = glm::vec3(0.1, 0.1, 0.1);
+	material_light_blue._diffuse_material = glm::vec3(1.0, 1.0, 1.0);
+	material_light_blue._ambient_material = glm::vec3(1.0, 1.0, 1.0);
+	material_light_blue._specular_material = glm::vec3(1.0, 1.0, 1.0);
 	material_light_blue._shininess = 12.0;
 	material_light_blue._transparency = 1.0;
 #pragma endregion
@@ -555,7 +575,7 @@ int main(int argc, const char * argv[])
 	light_source._specular_intensity = 1.5;
 	light_source._diffuse_intensity = 2.0;
 	light_source._attenuation_coeff = 0.0;
-	
+		
 
 	GLDirectLightSource origin_light;
 	origin_light._lightPos = glm::vec4(-20.0, -20.0, -20.0, 0.0);
@@ -808,6 +828,10 @@ int main(int argc, const char * argv[])
 	// Set the keyboard callback so that when we press ESC, it knows what to do.
 	glfwSetKeyCallback(window, keyboard_callback);
 
+	// Startup the keyframe animation code
+	initKeyframeAnimation();
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //// Main render loop
     
@@ -844,7 +868,7 @@ int main(int argc, const char * argv[])
         // 3. Render the first object
         // Switch to seletion mode and render the first object
 
-		#pragma region Shape 0
+	#pragma region Shape 0
 		glUniform1i(l0, false);
 		glUseProgram(apperance_0->getProgram());
         glUniform1i(l0, true);
@@ -854,9 +878,9 @@ int main(int argc, const char * argv[])
         glUniform1i(l0, false); // and switch to regular mode.
 		
 
-#pragma endregion
+	#pragma endregion
 
-		#pragma region Shape 1
+	#pragma region Shape 1
         // 4. Render the second object
         // Switch to seletion mode and render the first object
         glUseProgram(apperance_1->getProgram());
@@ -864,55 +888,55 @@ int main(int argc, const char * argv[])
         
         // render
         loadedModel1->draw();
-		#pragma endregion
+	#pragma endregion
 
-		#pragma region Shape 2
+	#pragma region Shape 2
 		glUniform1i(l2, false); // and switch to regular mode.
 		glUseProgram(apperance_2->getProgram());
 		glUniform1i(l2, true);
 
 		// render
 		loadedModel2->draw();
-		#pragma endregion
+	#pragma endregion
 
-		#pragma region Shape 3
+	#pragma region Shape 3
 		glUniform1i(l3, false); // and switch to regular mode.
 		glUseProgram(apperance_3->getProgram());
 		glUniform1i(l3, true);
 
 		// render
 		loadedModel3->draw();
-		#pragma endregion
+	#pragma endregion
 
 		
-		#pragma region Shape 4
+	#pragma region Shape 4
 		glUniform1i(l4, false); // and switch to regular mode.
 		glUseProgram(apperance_4->getProgram());
 		glUniform1i(l4, true);
 
 		// render
 		plane4->draw();
-		#pragma endregion
+	#pragma endregion
 
 
-		#pragma region Shape 5
+	#pragma region Shape 5
 		glUniform1i(l5, false); // and switch to regular mode.
 		glUseProgram(apperance_5->getProgram());
 		glUniform1i(l5, true);
 
 		// render
 		plane5->draw();
-		#pragma endregion
+	#pragma endregion
 
 
-#pragma region Shape 6
+	#pragma region Shape 6
 		glUniform1i(l6, false); // and switch to regular mode.
 		glUseProgram(apperance_6->getProgram());
 		glUniform1i(l6, true);
 
 		// render
 		plane6->draw();
-#pragma endregion
+	#pragma endregion
 
 		
 
@@ -959,6 +983,38 @@ int main(int argc, const char * argv[])
         glClearBufferfv(GL_COLOR , 0, clear_color_white);
         glClearBufferfv(GL_DEPTH , 0, clear_depth);
        
+		//////////////////////////////////////////////////////////////////
+		// Interpolate between keyframes
+		Keyframe k0, k1, k_res;
+
+		float time = glfwGetTime();
+
+		float f = getTimeFraction(time, 8.0); // we assume that the animation takes 8 seconds
+
+		int num = getKeyframes(myKeyframes, f, k0, k1);
+
+		bool ret = interpolateKeyframe(f, k0, k1, k_res);
+
+		// k_res.print();
+
+
+		cout << "k_res._p.x = " << to_string(k_res._p.x) << endl;
+
+
+		glm::mat4 new_model_matrix;
+
+		// new_model_marix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+		
+		new_model_matrix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+
+		loadedModel0->setMatrix(new_model_matrix);
+		
+		//
+		//////////////////////////////////////////////////////////////////
+
+
+
+
         loadedModel0->draw();
         loadedModel1->draw();
 		loadedModel2->draw();

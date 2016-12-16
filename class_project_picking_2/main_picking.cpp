@@ -73,12 +73,18 @@ GLObjectObj* loadedModel3 = NULL; // this is a new object
 GLPlane3D* plane4 = NULL; // this is a new object
 GLPlane3D* plane5 = NULL; // this is a new object
 GLPlane3D* plane6 = NULL; // this is a new object
+
+GLPlane3D* TableSurface = NULL; // this is a new object
 // GLObjectObj* loadedModel7 = NULL; // this is a new object
 
 // Variables to determine whether the planes are shown
-bool ShowPlane4 = true;
-bool ShowPlane5 = true;
-bool ShowPlane6 = true;
+bool ShowPlane4 = false;
+bool ShowPlane5 = false;
+bool ShowPlane6 = false;
+
+bool plane_disabled_4 = false;
+bool plane_disabled_5 = false;
+bool plane_disabled_6 = false;
 
 
 double delta = 0;
@@ -145,6 +151,8 @@ float getTimeFraction(const float time, const float duration)
 	float fraction = current_interval / duration;
 
 	return fraction;
+
+	
 }
 
 /*!
@@ -246,7 +254,7 @@ void initKeyframeAnimation(void)
 {
 	myKeyframes[0.0] = Keyframe(0.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(0.0f, glm::vec3(0.0, 0.0, 1.0)));
 	// myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, 0.0), angleAxis(1.0f, glm::vec3(3.1415, 0.0, 1.0)));
-	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, 0.0), angleAxis(2.0f, glm::vec3(3.1415 * 5, 0.0, 1.0)));
+	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(3.0, 3.0, 3.0), angleAxis(2.0f, glm::vec3(3.1415 * 5, 0.0, 1.0)));
 	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(2.0f, glm::vec3(3.1415 * 10, 0.0, 1.0)));
 }
 
@@ -267,87 +275,158 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// Cutting Plane Visibility
 
+	else if (key == 32 && action == GLFW_PRESS) // Spacebar
+	{
+		// User has pressed Numpad 1, 2, or 3
+		// which will display one of the cutting planes
+		// The user has confirmed the cutting plane they want to use
+		// by pressing the space bar.
+		
+		//Confirm cut on this plane
+		if (ShowPlane4 && !plane_disabled_4)
+		{
+			// Complete the cut on Plane 4.
+			// Move objects 1, 2, and 3
+			
+			glm::mat4 w_tranform = glm::translate(glm::vec3(0.0f, 0.0f, 10.0f)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+			
+			loadedModel1->setMatrix(w_tranform);
+			loadedModel2->setMatrix(w_tranform);
+			loadedModel3->setMatrix(w_tranform);
+			plane5->setMatrix(w_tranform);
+			plane6->setMatrix(w_tranform);
+
+			// Disable plane 4 from showing up again
+			ShowPlane4 = false;
+			// plane_disabled_4 = true;
+		}
+		else if (ShowPlane5 && !plane_disabled_5)
+		{
+			// Complete cut on Plane 5 (middle plane).
+			// Move all objects out
+			glm::mat4 w_tranform_positive = glm::translate(glm::vec3(0.0f, 0.0f, 10.0f)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+			glm::mat4 w_tranform_negative = glm::translate(glm::vec3(0.0f, 0.0f, -10.0f)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+
+			loadedModel0->setMatrix(w_tranform_negative);
+			loadedModel1->setMatrix(w_tranform_negative);
+			plane4->setMatrix(w_tranform_negative);
+
+			loadedModel2->setMatrix(w_tranform_positive);
+			loadedModel3->setMatrix(w_tranform_positive);
+			plane6->setMatrix(w_tranform_positive);
+
+			// Disable plane 5 from showing up again
+			ShowPlane5 = false;
+			// plane_disabled_5 = true;
+		}
+		else if (ShowPlane6 && !plane_disabled_6)
+		{
+			glm::mat4 w_tranform = glm::translate(glm::vec3(0.0f, 0.0f, -10.0f)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+			loadedModel0->setMatrix(w_tranform);
+			loadedModel1->setMatrix(w_tranform);
+			loadedModel2->setMatrix(w_tranform);
+			plane4->setMatrix(w_tranform);
+			plane5->setMatrix(w_tranform);
+
+			// Disable plane 6 from showing up again
+			ShowPlane6 = false;
+			// plane_disabled_6 = true;
+		}
+
+	}
+
 
 	else if (key == 49 && action == GLFW_PRESS) // 1
 	{
 		// Toggle plane 1 visibility
 		cout << "key 1 pressed" << endl;
+		
+		glm::mat4 CurrentModelMatrix = loadedModel0->getModelMatrix();
+		glm::mat4 NewCameraCoordinates = CurrentModelMatrix * glm::translate(glm::vec3(5.0f, 5.0f, 5.0f));
 
-		// SetViewAsLookAt(glm::vec3(0.0f, 0.0f, 65.5f), glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		// SetViewAsMatrix(GetCurrentCameraMatrix());
+
+		// Add the camera and a camera delta
+		// glm::mat4 camera_matrix = camera_delta *  camera_transformation * glm::inverse(object_transformation);
+
+		// set the view matrix
+		SetViewAsMatrix(NewCameraCoordinates);
 		
 	}
 	else if (key == 50 && action == GLFW_PRESS) // 2
 	{
 		cout << "key 2 pressed" << endl;
-		if (ShowPlane5)
+		/*if (ShowPlane5)
 		{
 			ShowPlane5 = false;
 		}
 		else {
 			ShowPlane5 = true;
-		}
+		}*/
 	}
 	else if (key == 51 && action == GLFW_PRESS) // 3
 	{
 		cout << "key 3 pressed" << endl;
-		if (ShowPlane6)
+		/*if (ShowPlane6)
 		{
 			ShowPlane6 = false;
 		}
 		else {
 			ShowPlane6 = true;
-		}
+		}*/
 	}
 	else if (key == 52 && action == GLFW_PRESS) // 4
 	{
 		cout << "key 4 pressed" << endl;
-		if (ShowPlane5)
+		/*if (ShowPlane5)
 		{
 			ShowPlane5 = false;
 		}
 		else {
 			ShowPlane5 = true;
-		}
+		}*/
 	}
-
+	// Numpad Buttons for displaying cutting plane
 	else if (key == 321 && action == GLFW_PRESS) // Numpad 1
 	{
 		cout << "key Numpad 1 (" << key << ") pressed" << endl;
-		if (ShowPlane4)
+		if (plane_disabled_4)
 		{
-			ShowPlane4 = false;
-		}
-		else {
+			cout << "Plane 4 has been disabled" << endl;
+		} else {
 			ShowPlane4 = true;
+			ShowPlane5 = false;
+			ShowPlane6 = false;
 		}
 	}
 
 	else if (key == 322 && action == GLFW_PRESS) // Numpad 2
 	{
 		cout << "key Numpad 2 (" << key << ") pressed" << endl;
-		if (ShowPlane5)
+		if (plane_disabled_5)
 		{
-			ShowPlane5 = false;
-		}
-		else {
+			cout << "Plane 5 has been disabled" << endl;
+		} else {
+			ShowPlane4 = false;
 			ShowPlane5 = true;
+			ShowPlane6 = false;
 		}
 	}
 
 	else if (key == 323 && action == GLFW_PRESS) // Numpad 3
 	{
-		cout << "key Numpad 3 (" << key << ") pressed" << endl;
-		if (ShowPlane6)
+		cout << "key Numpad 3 (" << key << ") pressed" << endl; 
+		
+		if (plane_disabled_6)
 		{
-			ShowPlane6 = false;
-		}
-		else {
+			cout << "Plane 6 has been disabled" << endl;
+		} else {
+			ShowPlane4 = false;
+			ShowPlane5 = false;
 			ShowPlane6 = true;
 		}
 	}
 	else {
-		cout << key << endl;
+		// cout << key << endl;
 	}
 
 	// g_change_texture_blend++;
@@ -366,7 +445,7 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 
 		glm::mat4 w_tranform = glm::translate(glm::vec3(0.1, 0.1f, 0.1f)) * glm::scale(glm::vec3(5.0 + 5 * delta, 5.0 + 5 * delta, 5.0 + 5 * delta));
 		
-		
+		glm::mat4 CurrentModelMatrix = loadedModel0->getModelMatrix();
 
 		// loadedModel0 = new GLObjectObj("../class_project_models/0.obj");
 		// loadedModel0->setApperance(*apperance_0);
@@ -565,6 +644,13 @@ int main(int argc, const char * argv[])
 	material_light_blue._specular_material = glm::vec3(1.0, 1.0, 1.0);
 	material_light_blue._shininess = 12.0;
 	material_light_blue._transparency = 1.0;
+
+	GLMaterial material_table;
+	material_table._diffuse_material = glm::vec3(0.5, 0.5, 0.5);
+	material_table._ambient_material = glm::vec3(0.5, 0.5, 0.5);
+	material_table._specular_material = glm::vec3(0.5, 0.5, 0.5);
+	material_table._shininess = 3.0;
+	material_table._transparency = 1.0;
 #pragma endregion
 
 #pragma region Lights
@@ -606,9 +692,20 @@ int main(int argc, const char * argv[])
 
 	// GLTexture* texture_0 = new GLTexture("../models_for_project/simple_texture.bmp")
 
+	
+	GLMultiTexture* texture_table = new GLMultiTexture();
+	int texid2 = texture_table->loadAndCreateTextures("../steel_surface.bmp", "../clouds.bmp");
+
 #pragma endregion
 
 #pragma region Setting Appearances
+	GLAppearance* apperance_table = new GLAppearance("../class_project_shaders/multi_texture.vs", "../class_project_shaders/multi_texture.fs");
+	apperance_table->addLightSource(light_source);
+	// apperance_table->addLightSource(origin_light);
+	apperance_table->setMaterial(material_table);
+	apperance_table->setTexture(texture_table);
+	apperance_table->finalize();
+
     // Create appearances 
     GLAppearance* apperance_0 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
     apperance_0->addLightSource(light_source);
@@ -670,6 +767,16 @@ int main(int argc, const char * argv[])
 #pragma endregion
 
 #pragma region Attaching OBJ files to loadedModel objects
+	
+	// glm::mat4 camera_delta = glm::rotate(-0.4f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	// Table surface
+	glm::mat4 transform_table = glm::translate(glm::vec3(0.0, -15.0f, 0.0f)) * glm::rotate(1.57f, glm::vec3(3.14f, 0.0f, 0.0f)) * glm::scale(glm::vec3(10.0, 10.0f, 10.0f));
+	TableSurface = new GLPlane3D(0.0, 0.0, 0.0, 5.0, 5.0);
+	TableSurface->setApperance(*apperance_table);
+	TableSurface->init();
+	TableSurface->setMatrix(transform_table);
+
 	// Model 0 (Binary 2)
 	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
     
@@ -907,34 +1014,40 @@ int main(int argc, const char * argv[])
 		loadedModel3->draw();
 	#pragma endregion
 
-		
 	#pragma region Shape 4
-		glUniform1i(l4, false); // and switch to regular mode.
-		glUseProgram(apperance_4->getProgram());
-		glUniform1i(l4, true);
+		if (ShowPlane4)
+		{
+			glUniform1i(l4, false); // and switch to regular mode.
+			glUseProgram(apperance_4->getProgram());
+			glUniform1i(l4, true);
 
-		// render
-		plane4->draw();
+			// render
+			plane4->draw();
+		}
 	#pragma endregion
-
 
 	#pragma region Shape 5
-		glUniform1i(l5, false); // and switch to regular mode.
-		glUseProgram(apperance_5->getProgram());
-		glUniform1i(l5, true);
+		if (ShowPlane5)
+		{
+			glUniform1i(l5, false); // and switch to regular mode.
+			glUseProgram(apperance_5->getProgram());
+			glUniform1i(l5, true);
 
-		// render
-		plane5->draw();
+			// render
+			plane5->draw();
+		}
 	#pragma endregion
 
-
 	#pragma region Shape 6
-		glUniform1i(l6, false); // and switch to regular mode.
-		glUseProgram(apperance_6->getProgram());
-		glUniform1i(l6, true);
+		if (ShowPlane6)
+		{
+			glUniform1i(l6, false); // and switch to regular mode.
+			glUseProgram(apperance_6->getProgram());
+			glUniform1i(l6, true);
 
-		// render
-		plane6->draw();
+			// render
+			plane6->draw();
+		}
 	#pragma endregion
 
 		
@@ -996,35 +1109,36 @@ int main(int argc, const char * argv[])
 
 		
 
-		k_res.print();
+		// k_res.print();
 
 
-		cout << "k_res._p.x = " << to_string(k_res._p.x) << endl;
+		// cout << "k_res._p.x = " << to_string(k_res._p.x) << endl;
 
 
 		glm::mat4 new_model_matrix;
 
 		// new_model_marix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::scale(glm::vec3(5.0, 5.0y 5.0));
 		
+		// cout << k_res._t << endl;
+
 		// Translate * Rotate * Scale the model
 		new_model_matrix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::rotate(k_res._t, glm::vec3(k_res._q.x, k_res._q.y, k_res._q.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
+		
+		// new_model_matrix = glm::rotate(k_res._t, glm::tvec3(1.0, 2.0, 2.0));
+		
+
 		// new_model_matrix = glm::rotate(k_res._t, glm::tvec3(1.0, 2.0, 2.0));
 		// new_model_matrix = glm::rotate(k_res._t, glm::vec3(1.0, 2.0, 2.0));
 		
-
-		loadedModel0->setMatrix(new_model_matrix);
+		// Translate a cube according to the animation
+		// loadedModel0->setMatrix(new_model_matrix);
 		
 		//
 		//////////////////////////////////////////////////////////////////
 
 
 
-
-        loadedModel0->draw();
-        loadedModel1->draw();
-		loadedModel2->draw();
-		loadedModel3->draw();
-		
+		// glDisable(GL_DEPTH_TEST);
 		// Render planes
 		if (ShowPlane4)
 		{
@@ -1039,6 +1153,16 @@ int main(int argc, const char * argv[])
 		{
 			plane6->draw();
 		}
+		// glEnable(GL_DEPTH_TEST);
+
+
+        loadedModel0->draw();
+        loadedModel1->draw();
+		loadedModel2->draw();
+		loadedModel3->draw();
+
+		
+		TableSurface->draw();
 
 		// plane4->draw();
 		// plane5->draw();

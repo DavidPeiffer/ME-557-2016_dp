@@ -29,6 +29,11 @@ public:
     GLObjectObj();
     ~GLObjectObj();
     
+
+	/*!
+	Retursn the model matrix.
+	*/
+	inline glm::mat4& getModelMatrix(void) { return _modelMatrix; };
     
     /*!
      Draw the objects

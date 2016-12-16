@@ -1,3 +1,0 @@
-D:/School/ME-557-2016_dp/Class Project 1256/CMakeFiles/HCI557_Picking.dir
-D:/School/ME-557-2016_dp/Class Project 1256/CMakeFiles/ALL_BUILD.dir
-D:/School/ME-557-2016_dp/Class Project 1256/CMakeFiles/ZERO_CHECK.dir

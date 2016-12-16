@@ -252,10 +252,10 @@ This initializes the keyframes.
 */
 void initKeyframeAnimation(void)
 {
-	myKeyframes[0.0] = Keyframe(0.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(0.0f, glm::vec3(0.0, 0.0, 1.0)));
+	myKeyframes[0.0] = Keyframe(0.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(0.0f, glm::vec3(0.0, 0.0, 0.0)));
 	// myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, 0.0), angleAxis(1.0f, glm::vec3(3.1415, 0.0, 1.0)));
-	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(3.0, 3.0, 3.0), angleAxis(2.0f, glm::vec3(3.1415 * 5, 0.0, 1.0)));
-	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(2.0f, glm::vec3(3.1415 * 10, 0.0, 1.0)));
+	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(3.0, 3.0, 3.0), angleAxis(2.0f, glm::vec3(3.1415 * 5, 0.0, 0.0)));
+	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(2.0f, glm::vec3(3.1415 *5, 0.0, 3.14)));
 }
 
 #pragma endregion
@@ -704,12 +704,22 @@ int main(int argc, const char * argv[])
 	GLMultiTexture* texture_table = new GLMultiTexture();
 	int texid2 = texture_table->loadAndCreateTextures("../steel_surface.bmp", "../clouds.bmp");
 
+	GLTexture* texture_plane_1= new GLTexture();
+	int texid3 = texture_plane_1->loadAndCreateTexture("../steel_surface.bmp");
+
+	GLTexture* texture_plane_2 = new GLTexture();
+	int texid4 = texture_plane_2->loadAndCreateTexture("../clouds.bmp");
+
+	GLTexture* texture_plane_3 = new GLTexture();
+	int texid5 = texture_plane_3->loadAndCreateTexture("../class_project_models/simple_teture.bmp");
+
+
 #pragma endregion
 
 #pragma region Setting Appearances
 	GLAppearance* apperance_table = new GLAppearance("../class_project_shaders/multi_texture.vs", "../class_project_shaders/multi_texture.fs");
 	apperance_table->addLightSource(light_source1);
-	// apperance_table->addLightSource(light_source2);
+	apperance_table->addLightSource(light_source2);
 	apperance_table->setMaterial(material_table);
 	apperance_table->setTexture(texture_table);
 	apperance_table->finalize();
@@ -717,7 +727,6 @@ int main(int argc, const char * argv[])
     // Create appearances 
     GLAppearance* apperance_0 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
     apperance_0->addLightSource(light_source1);
-	// apperance_0->addLightSource(light_source2);
 	apperance_0->addLightSource(light_source2);
     apperance_0->setMaterial(material_light_blue);
 	apperance_0->setTexture(texture_0); 
@@ -748,19 +757,21 @@ int main(int argc, const char * argv[])
 	apperance_4->addLightSource(light_source1);
 	apperance_4->addLightSource(light_source2);
 	apperance_4->setMaterial(material_0);
+	apperance_4->setTexture(texture_plane_1);
 	apperance_4->finalize();
 
 	GLAppearance* apperance_5 = new GLAppearance("../class_project_shaders/class_project_shader.vs", "../class_project_shaders/class_project_shader.fs");
 	apperance_5->addLightSource(light_source1);
 	apperance_5->addLightSource(light_source2);
 	apperance_5->setMaterial(material_0);
+	apperance_5->setTexture(texture_plane_2);
 	apperance_5->finalize();
 
 	GLAppearance* apperance_6 = new GLAppearance("../class_project_shaders/multi_texture.vs", "../class_project_shaders/multi_texture.fs");
 	apperance_6->addLightSource(light_source1);
 	apperance_6->addLightSource(light_source2);
 	apperance_6->setMaterial(material_0);
-	apperance_6->setTexture(texture_0);
+	apperance_6->setTexture(texture_plane_3);
 	apperance_6->finalize();
 
 	/*
@@ -1152,7 +1163,7 @@ int main(int argc, const char * argv[])
 		// new_model_matrix = glm::rotate(k_res._t, glm::vec3(1.0, 2.0, 2.0));
 		
 		// Translate a cube according to the animation
-		// loadedModel0->setMatrix(new_model_matrix);
+		loadedModel0->setMatrix(new_model_matrix);
 		
 		//
 		//////////////////////////////////////////////////////////////////

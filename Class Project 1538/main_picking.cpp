@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 -. All rights reserved.
 //
 
-// stl include
+// stl include	
 #include <iostream>
 #include <string>
 #include <map>
@@ -669,8 +669,8 @@ int main(int argc, const char * argv[])
 	GLDirectLightSource  light_source1;
 	light_source1._lightPos = glm::vec4(20.0, 20.0, 20.0, 0.0);
 	light_source1._ambient_intensity = 0.2;
-	light_source1._specular_intensity = 1.5;
-	light_source1._diffuse_intensity = 2.0;
+	light_source1._specular_intensity = 0.5;
+	light_source1._diffuse_intensity = 1.0;
 	light_source1._attenuation_coeff = 0.0;
 		
 
@@ -716,16 +716,12 @@ int main(int argc, const char * argv[])
 
 	GLTexture* texture_plane_3 = new GLTexture();
 	int texid5 = texture_plane_3->loadAndCreateTexture("../data/textures/clouds.bmp");
-
-
-
-
 #pragma endregion
 
 #pragma region Setting Appearances
-	GLAppearance* apperance_table = new GLAppearance("../data/shaders/class_project_shaders/multi_texture.vs", "../data/shaders/class_project_shaders/multi_texture.fs");
+	GLAppearance* apperance_table = new GLAppearance("../data/shaders/multi_texture.vs", "../data/shaders/multi_texture.fs");
 	apperance_table->addLightSource(light_source1);
-	apperance_table->addLightSource(light_source2);
+	// apperance_table->addLightSource(light_source2);
 	apperance_table->setMaterial(material_table);
 	apperance_table->setTexture(texture_table);
 	apperance_table->finalize();
@@ -773,7 +769,7 @@ int main(int argc, const char * argv[])
 	apperance_5->setTexture(texture_plane_2);
 	apperance_5->finalize();
 
-	GLAppearance* apperance_6 = new GLAppearance("../data/shaders/class_project_shaders/class_project_shader.vs", "../data/shaders/class_project_shaders/class_project_shader.vs");
+	GLAppearance* apperance_6 = new GLAppearance("../data/shaders/class_project_shaders/class_project_shader.vs", "../data/shaders/class_project_shaders/class_project_shader.fs");
 	apperance_6->addLightSource(light_source1);
 	// apperance_6->addLightSource(light_source2);
 	apperance_6->setMaterial(material_0);
@@ -805,7 +801,7 @@ int main(int argc, const char * argv[])
 	TableSurface->setMatrix(transform_table);
 
 	// Model 0 (Binary 2)
-	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, -1.5f));
     
     loadedModel0 = new GLObjectObj("../data/project_models/0.obj");
 	loadedModel0->setApperance(*apperance_0);
@@ -813,19 +809,19 @@ int main(int argc, const char * argv[])
 	loadedModel0->setMatrix(tranform_0);
         
     loadedModel1 = new GLObjectObj("../data/project_models/1.obj");
-	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, -0.5f));
 
     loadedModel1->setApperance(*apperance_1);
     loadedModel1->init();
 	loadedModel1->setMatrix(tranform_1);
 
-	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.5f));
 	loadedModel2 = new GLObjectObj("../data/project_models/2.obj");
 	loadedModel2->setApperance(*apperance_2);
 	loadedModel2->init();
 	loadedModel2->setMatrix(tranform_2);
 
-	glm::mat4 tranform_3 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_3 = glm::translate(glm::vec3(0.0, 0.0f, 1.5f));
 	loadedModel3 = new GLObjectObj("../data/project_models/3.obj");
 	loadedModel3->setApperance(*apperance_3);
 	loadedModel3->init();

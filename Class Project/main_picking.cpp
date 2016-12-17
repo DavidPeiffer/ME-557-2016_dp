@@ -48,6 +48,7 @@ GLuint program;
 /* A trackball to move and rotate the camera view */
 extern Trackball trackball;
 
+double currentCameraZFocus = 0;
 
 
 
@@ -76,6 +77,9 @@ GLPlane3D* plane6 = NULL; // this is a new object
 
 GLPlane3D* TableSurface = NULL; // this is a new object
 // GLObjectObj* loadedModel7 = NULL; // this is a new object
+
+
+
 
 // Variables to determine whether the planes are shown
 bool ShowPlane4 = false;
@@ -254,22 +258,25 @@ void initKeyframeAnimation(void)
 {
 	myKeyframes[0.0] = Keyframe(0.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(0.0f, glm::vec3(0.0, 0.0, 0.0)));
 	// myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, 0.0), angleAxis(1.0f, glm::vec3(3.1415, 0.0, 1.0)));
-	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, 0.0), angleAxis(2.0f, glm::vec3(3.1415 * 5, 0.0, 0.0)));
-	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.0, 0.0), angleAxis(2.0f, glm::vec3(-3.1415 * 5, 0.0, 3.14)));
+	myKeyframes[0.5] = Keyframe(0.5, glm::vec3(0.0, 0.0, 0.5), angleAxis(2.0f, glm::vec3(0.0, 0.0, 0.0)));
+	myKeyframes[1.0] = Keyframe(1.0, glm::vec3(0.0, 0.0, 1.0), angleAxis(2.0f, glm::vec3(0.0, 0.0, 0.0)));
 }
 
 #pragma endregion
 
 
-void mouse_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	cout << "mouse callback" << endl;
-}
+
 
 // This is the callback we'll be registering with GLFW for keyboard handling.
 // The only thing we're doing here is setting up the window to close when we press ESC
 void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	bool move = false;
+
+	// This is the transformation when a user mouses over a block
+	glm::mat4 modelTransform = glm::translate(glm::vec3(0.0, 0.0, 1.0));
+	glm::mat4 modelTransformNegative = glm::translate(glm::vec3(0.0, 0.0, -1.0));
+	
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
@@ -294,6 +301,7 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 			
 			glm::mat4 w_tranform = glm::translate(glm::vec3(0.0f, 0.0f, 10.0f)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
 			
+			// Moves the elements of the scene around after the cutting operation
 			loadedModel1->setMatrix(w_tranform);
 			loadedModel2->setMatrix(w_tranform);
 			loadedModel3->setMatrix(w_tranform);
@@ -340,15 +348,93 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, in
 	}
 
 
+
+	// If the user hits "c" and an object is under the mouse...
+	else if (key == 67 && action == GLFW_PRESS && g_selected_object_id > 0) // c 
+	{
+		
+
+		switch (g_selected_object_id)
+		{
+		case 2:
+			
+			modelTransform = loadedModel0->getModelMatrix() * modelTransform;
+			loadedModel0->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		case 4:
+			modelTransform = loadedModel1->getModelMatrix() * modelTransform;
+			loadedModel1->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		case 6:
+			modelTransform = loadedModel2->getModelMatrix() * modelTransform;
+			loadedModel2->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		case 8:
+			modelTransform = loadedModel3->getModelMatrix() * modelTransform;
+			loadedModel3->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		default:
+			g_selected_object_id = 0;
+			break;
+		}
+	}
+	else if (key == 68 && action == GLFW_PRESS && g_selected_object_id > 0) // d
+	{
+		switch (g_selected_object_id)
+		{
+		case 2:
+
+			modelTransform = loadedModel0->getModelMatrix() * modelTransformNegative;
+			loadedModel0->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		case 4:
+			modelTransform = loadedModel1->getModelMatrix() * modelTransformNegative;
+			loadedModel1->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		case 6:
+			modelTransform = loadedModel2->getModelMatrix() * modelTransformNegative;
+			loadedModel2->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		case 8:
+			modelTransform = loadedModel3->getModelMatrix() * modelTransformNegative;
+			loadedModel3->setMatrix(modelTransform);
+			SetViewAsMatrix(modelTransform);
+			g_selected_object_id = 0;
+			break;
+		default:
+			g_selected_object_id = 0;
+			break;
+		}
+	}
+
 	else if (key == 49 && action == GLFW_PRESS) // 1
 	{
 		// Toggle plane 1 visibility
 		cout << "key 1 pressed" << endl;
 		
 		cout << "Attempting to move camera";
-		glm::mat4 CurrentModelMatrix = loadedModel0->getModelMatrix();
+		
 
-		glm::mat4 NewCameraCoordinates = CurrentModelMatrix * glm::translate(glm::vec3(5.0f, 5.0f, 5.0f)) * glm::scale(glm::vec3(1.5f, 1.5f, 1.5f));
+
+		// glm::mat4 CurrentModelMatrix = loadedModel0->getModelMatrix();
+
+		// glm::mat4 NewCameraCoordinates = CurrentModelMatrix * glm::translate(glm::vec3(5.0f, 5.0f, 5.0f)) * glm::scale(glm::vec3(1.5f, 1.5f, 1.5f));
+
+		glm::mat4 NewCameraCoordinates = glm::translate(glm::vec3(1.0f, 1.0f, 1.0f)) * glm::inverse(GetCurrentCameraMatrix());
 
 
 		// Add the camera and a camera delta
@@ -631,7 +717,7 @@ int main(int argc, const char * argv[])
     // Init the glew api
     initGlew();
     SetCameraManipulator(CameraTypes::CAMERA_MANIPULATOR);
-	SetCameraDistance(10);
+
     
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -699,7 +785,7 @@ int main(int argc, const char * argv[])
 	//************************************************************************************************
 	// Add a texture
 	GLTexture* texture_0 = new GLTexture();
-	int texid = texture_0->loadAndCreateTexture("../data/textures/clouds.bmp");
+	int texid = texture_0->loadAndCreateTexture("../data/textures/steel_surface.bmp");
 	
 
 	// GLTexture* texture_0 = new GLTexture("../data/textures/simple_texture.bmp")
@@ -715,7 +801,7 @@ int main(int argc, const char * argv[])
 	int texid4 = texture_plane_2->loadAndCreateTexture("../data/textures/clouds.bmp");
 
 	GLTexture* texture_plane_3 = new GLTexture();
-	int texid5 = texture_plane_3->loadAndCreateTexture("../data/textures/clouds.bmp");
+	int texid5 = texture_plane_3->loadAndCreateTexture("../data/textures/simple_texture.bmp");
 
 
 
@@ -773,7 +859,7 @@ int main(int argc, const char * argv[])
 	apperance_5->setTexture(texture_plane_2);
 	apperance_5->finalize();
 
-	GLAppearance* apperance_6 = new GLAppearance("../data/shaders/class_project_shaders/class_project_shader.vs", "../data/shaders/class_project_shaders/class_project_shader.vs");
+	GLAppearance* apperance_6 = new GLAppearance("../data/shaders/class_project_shaders/multi_texture.vs", "../data/shaders/class_project_shaders/multi_texture.fs");
 	apperance_6->addLightSource(light_source1);
 	// apperance_6->addLightSource(light_source2);
 	apperance_6->setMaterial(material_0);
@@ -805,45 +891,44 @@ int main(int argc, const char * argv[])
 	TableSurface->setMatrix(transform_table);
 
 	// Model 0 (Binary 2)
-	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
-    
+	glm::mat4 tranform_0 = glm::translate(glm::vec3(0.0, 0.0f, -6.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
     loadedModel0 = new GLObjectObj("../data/project_models/0.obj");
 	loadedModel0->setApperance(*apperance_0);
 	loadedModel0->init();
 	loadedModel0->setMatrix(tranform_0);
-        
-    loadedModel1 = new GLObjectObj("../data/project_models/1.obj");
-	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
-
+       
+    
+	glm::mat4 tranform_1 = glm::translate(glm::vec3(0.0, 0.0f, -4.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
+	loadedModel1 = new GLObjectObj("../data/project_models/1.obj");
     loadedModel1->setApperance(*apperance_1);
     loadedModel1->init();
 	loadedModel1->setMatrix(tranform_1);
 
-	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_2 = glm::translate(glm::vec3(0.0, 0.0f, 4.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
 	loadedModel2 = new GLObjectObj("../data/project_models/2.obj");
 	loadedModel2->setApperance(*apperance_2);
 	loadedModel2->init();
 	loadedModel2->setMatrix(tranform_2);
 
-	glm::mat4 tranform_3 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_3 = glm::translate(glm::vec3(0.0, 0.0f, 6.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
 	loadedModel3 = new GLObjectObj("../data/project_models/3.obj");
 	loadedModel3->setApperance(*apperance_3);
 	loadedModel3->init();
 	loadedModel3->setMatrix(tranform_3);
     
-	glm::mat4 tranform_4 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_4 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
 	plane4= new GLPlane3D(0.0, 0.0, -2.0, 5.0, 5.0);
 	plane4->setApperance(*apperance_4);
 	plane4->init();
 	plane4->setMatrix(tranform_4);
 
-	glm::mat4 tranform_5 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_5 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
 	plane5 = new GLPlane3D(0.0, 0.0, 0.0, 5.0, 5.0);
 	plane5->setApperance(*apperance_5);
 	plane5->init();
 	plane5->setMatrix(tranform_5);
 
-	glm::mat4 tranform_6 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f));
+	glm::mat4 tranform_6 = glm::translate(glm::vec3(0.0, 0.0f, 0.0f)) * glm::scale(glm::vec3(5.0, 5.0f, 5.0f));
 	plane6 = new GLPlane3D(0.0, 0.0, 2.0, 5.0, 5.0);
 	plane6->setApperance(*apperance_6);
 	plane6->init();
@@ -963,8 +1048,6 @@ int main(int argc, const char * argv[])
 
 	// Set the keyboard callback so that when we press ESC, it knows what to do.
 	glfwSetKeyCallback(window, keyboard_callback);
-
-	// glfwSetMouseButtonCallback(window, mouse_callback);
 
 	// Startup the keyframe animation code
 	initKeyframeAnimation();
@@ -1162,7 +1245,7 @@ int main(int argc, const char * argv[])
 		// cout << k_res._t << endl;
 
 		// Translate * Rotate * Scale the model
-		new_model_matrix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::rotate(k_res._t, glm::vec3(k_res._q.x, k_res._q.y, k_res._q.z));
+		new_model_matrix = glm::translate(glm::vec3(k_res._p.x, k_res._p.y, k_res._p.z)) * glm::rotate(k_res._t, glm::vec3(k_res._q.x, k_res._q.y, k_res._q.z)) * glm::scale(glm::vec3(5.0, 5.0, 5.0));
 		
 		// new_model_matrix = glm::rotate(k_res._t, glm::tvec3(1.0, 2.0, 2.0));
 		
@@ -1171,7 +1254,7 @@ int main(int argc, const char * argv[])
 		// new_model_matrix = glm::rotate(k_res._t, glm::vec3(1.0, 2.0, 2.0));
 		
 		// Translate a cube according to the animation
-		loadedModel0->setMatrix(new_model_matrix);
+		// loadedModel0->setMatrix(new_model_matrix);
 		
 		//
 		//////////////////////////////////////////////////////////////////

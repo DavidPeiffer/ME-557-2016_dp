@@ -1,5 +1,5 @@
 # Main cmake file 
-# Model Loader Example
+# Picking with Scissor test example
 # Rafael Radkowski, rafael@iastate.edu
 # Iowa State University
 # ME/CS/CprE 557 Computer Graphics, Fall 2015
@@ -7,7 +7,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 # Main project name is ARMaker
-	project(HCI557_ObjLoader)
+project(David_Project)
 
 
 set(CFILE_PATH  "${CMAKE_SOURCE_DIR}/../SDK/cmake/")
@@ -32,10 +32,8 @@ include_directories(${OPENGL_INCLUDE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/../gl_common/)
 
 # Add all files to the configuration
-file(GLOB HCI557_ObjLoader_SRC
-	main_model_loader_example.cpp
-    ../gl_common/Sphere3D.h
-    ../gl_common/Sphere3D.cpp
+file(GLOB David_Project_SRC
+	main_picking.cpp
     ../gl_common/HCI557Common.cpp
     ../gl_common/HCI557Common.h
 	../gl_common/controls.cpp
@@ -44,8 +42,6 @@ file(GLOB HCI557_ObjLoader_SRC
     ../gl_common/CoordSystem.h
 	../gl_common/GLObject.h
    	../gl_common/GLObject.cpp
-    ../gl_common/GLSphere.cpp
-    ../gl_common/GLSphere.h
     ../gl_common/Shaders.h
     ../gl_common/Shaders.cpp
     ../gl_common/HCI557Datatypes.h
@@ -56,6 +52,12 @@ file(GLOB HCI557_ObjLoader_SRC
 	../gl_common/camera.cpp
     ../gl_common/GLObjectObj.h
     ../gl_common/GLObjectObj.cpp
+    
+# DAVID ADDITIONS
+    ../gl_common/Texture.cpp
+    ../gl_common/Texture.h
+    ../gl_common/Plane3D.cpp
+    ../gl_common/Plane3D.h
 
 )
 
@@ -71,7 +73,7 @@ source_group(Resources FILES ${HCI557_RES})
 
 
 # Create an executable
-add_executable(HCI557_ObjLoader ${HCI557_ObjLoader_SRC})
+add_executable(David_Project ${David_Project_SRC})
 
 
 # Add link directories
@@ -87,4 +89,5 @@ ENDIF(WIN32)
 
 
 # Add libraries
-target_link_libraries(HCI557_ObjLoader ${GLEW_LIBRARY} ${GLFW3_LIBRARY} ${OPENGL_LIBRARIES} ${OPENGL_LIBRARIES} )
+target_link_libraries(David_Project ${GLEW_LIBRARY} ${GLFW3_LIBRARY} ${OPENGL_LIBRARIES} ${OPENGL_LIBRARIES} )
+						

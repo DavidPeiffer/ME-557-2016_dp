@@ -1,3 +1,0 @@
-D:/School/ME-557-2016_dp/attempt_12/CMakeFiles/ME557_David_Peiffer_Project.dir
-D:/School/ME-557-2016_dp/attempt_12/CMakeFiles/ALL_BUILD.dir
-D:/School/ME-557-2016_dp/attempt_12/CMakeFiles/ZERO_CHECK.dir
